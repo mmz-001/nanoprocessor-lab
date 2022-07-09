@@ -14,9 +14,9 @@ architecture Behavioral of REG_4 is
 begin
   process (Clk) begin
       if (rising_edge(Clk)) then
-          if Res = '1' and En = '1' then
+          if Res = '1' then
               Q <= "0000";
-          else
+          elsif En = '1' then
               Q <= D;
           end if;
       end if;

@@ -41,7 +41,7 @@ architecture Behavioral of REG_4_BANK_8 is
 begin
   Decoder_3_to_8_0 : Decoder_3_to_8
     port map (
-      I => R_In,
+      I => R_En,
       EN => '1',
       Y => R_Sel
     );
@@ -49,10 +49,75 @@ begin
   REG_4_0 : REG_4
     port map (
       D => R_In,
-      En => '1',
+      En => R_Sel(0),
       Res => Res,
-      Clk => Clk
+      Clk => Clk,
+      Q => R_0
     );
   
+  REG_4_1 : REG_4
+    port map (
+      D => R_In,
+      En => R_Sel(1),
+      Res => Res,
+      Clk => Clk,
+      Q => R_1
+    );
+  
+  REG_4_2 : REG_4
+    port map (
+      D => R_In,
+      En => R_Sel(2),
+      Res => Res,
+      Clk => Clk,
+      Q => R_2
+    );
+  
+  REG_4_3 : REG_4
+    port map (
+      D => R_In,
+      En => R_Sel(3),
+      Res => Res,
+      Clk => Clk,
+      Q => R_3
+    );
+  
+  REG_4_4 : REG_4
+    port map (
+      D => R_In,
+      En => R_Sel(4),
+      Res => Res,
+      Clk => Clk,
+      Q => R_4
+    );
+  
+  REG_4_5 : REG_4
+    port map (
+      D => R_In,
+      En => R_Sel(5),
+      Res => Res,
+      Clk => Clk,
+      Q => R_5
+    );
+  
+  REG_4_6 : REG_4
+    port map (
+      D => R_In,
+      En => R_Sel(6),
+      Res => Res,
+      Clk => Clk,
+      Q => R_6
+    );
+  
+  REG_4_7 : REG_4
+    port map (
+      D => R_In,
+      En => R_Sel(7),
+      Res => Res,
+      Clk => Clk,
+      Q => R_7
+    );
+  
+
 
 end Behavioral;
