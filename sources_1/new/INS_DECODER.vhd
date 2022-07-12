@@ -1,61 +1,77 @@
+----------------------------------------------------------------------------------
+-- Company: 
+-- Engineer: 
+-- 
+-- Create Date: 07/11/2022 10:42:06 PM
+-- Design Name: 
+-- Module Name: Ins_Decoder - Behavioral
+-- Project Name: 
+-- Target Devices: 
+-- Tool Versions: 
+-- Description: 
+-- 
+-- Dependencies: 
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+-- 
+----------------------------------------------------------------------------------
+
+
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use ieee.numeric_std.all;
 
-entity INS_DECODER is
-  Port (
-    I : in STD_LOGIC_VECTOR (11 downto 0);
-    R : in STD_LOGIC_VECTOR (3 downto 0);
-    R_En, RA_Sel, RB_Sel, JMP_Add : out STD_LOGIC_VECTOR (2 downto 0);
-    Load_Sel, Add_Sub_Sel, JMP_Flag : out STD_LOGIC;
-    Im_Val : out STD_LOGIC_VECTOR (3 downto 0)
-  );
-end INS_DECODER;
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--use IEEE.NUMERIC_STD.ALL;
 
-architecture Behavioral of INS_DECODER is
+-- Uncomment the following library declaration if instantiating
+-- any Xilinx leaf cells in this code.
+--library UNISIM;
+--use UNISIM.VComponents.all;
 
-  signal Ins : STD_LOGIC_VECTOR (1 downto 0);
-  
+entity Ins_Decoder is
+    Port ( Ins : in STD_LOGIC_VECTOR (11 downto 0);
+           Reg_En : out STD_LOGIC_VECTOR (2 downto 0);
+           Immediate_Val : out STD_LOGIC_VECTOR (3 downto 0);
+           Load_Sel : out STD_LOGIC;
+           Reg_Sel_A : out STD_LOGIC_VECTOR (2 downto 0);
+           Reg_Sel_B : out STD_LOGIC_VECTOR (2 downto 0);
+           Add_Sub_Sel : out STD_LOGIC;
+           Jump_Chk_Reg : in STD_LOGIC_VECTOR (3 downto 0);
+           Jump_F : out STD_LOGIC := '0';
+           Jump_address : out STD_LOGIC_VECTOR (2 downto 0):= "000");
+end Ins_Decoder;
+
+architecture Behavioral of Ins_Decoder is
+signal choice : STD_LOGIC_VECTOR (1 downto 0);
 begin
-  Ins <= I(11 downto 10);
 
-  process (I, Ins, R) 
-  begin
+-- Initially Set Jump Flag to Zero   
+    -- Choice signal
+    choice <= Ins(11 downto 10); 
+    -- Load Select
+    Load_Sel <= Ins(11) AND (NOT(Ins(10)));
+    -- Add Sub Select
+    Add_Sub_Sel <= Ins(10) AND (NOT(Ins(11)));
+    -- Immediate Value
+    Immediate_Val <= Ins(3 downto 0);
+    -- Enable register to store the output
+    Reg_En <= Ins(9 downto 7);
+    -- Register A
+    Reg_Sel_A <= Ins(9 downto 7);
+    -- Register B
+    Reg_Sel_B <= Ins(6 downto 4);
 
-    JMP_Flag <= '0';
-    JMP_Add <= I(2 downto 0);
-    Im_Val <= I(3 downto 0);
-    R_En <= I(9 downto 7);
-    RA_Sel <= I(9 downto 7);
-    RB_Sel <= I(6 downto 4);
-    Load_Sel <= '0';
-    Add_Sub_Sel <= '0';
+
+process(choice)
+begin
     
-    if Ins = "10" then
-      -- MOVI R, d
-      Load_Sel <= '0';
-
-    elsif Ins = "00" then
-      -- ADD Ra, Rb 
-      Load_Sel <= '1';
-      Add_Sub_Sel <= '0';
-
-    elsif Ins = "01" then
-      -- NEG R
-      Load_Sel <= '1';
-      RB_Sel <= "000";
-      Add_Sub_Sel <= '1';
-
-    elsif Ins = "11" then
-      -- JZR R, d 
-
-      if R = "0000" then
-        JMP_Flag <= '1';
-      else
-        JMP_Flag <= '0';
-      end if;
-
+    if(choice="11") then
+        if(Jump_Chk_Reg="0000") then
+            Jump_F <= '1'; Jump_address<=Ins(2 downto 0); 
+        end if;
     end if;
-  end process;
-
+end process;
 end Behavioral;

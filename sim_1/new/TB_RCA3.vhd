@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 05/26/2022 01:48:11 PM
+-- Create Date: 07/11/2022 08:26:05 PM
 -- Design Name: 
--- Module Name: HA - Behavioral
+-- Module Name: TB_RCA3 - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,16 +31,13 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity HA is
-    Port ( A : in STD_LOGIC;
-           B : in STD_LOGIC;
-           S : out STD_LOGIC;
-           C : out STD_LOGIC);
-end HA;
+entity TB_RCA3 is
+--  Port ( );
+end TB_RCA3;
 
-architecture Behavioral of HA is
+architecture Behavioral of TB_RCA3 is
 
 begin
-    S <= A XOR B;
-    C <= A AND B;
+
+
 end Behavioral;

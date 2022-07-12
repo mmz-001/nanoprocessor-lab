@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 05/26/2022 01:48:11 PM
+-- Create Date: 07/08/2022 06:56:17 AM
 -- Design Name: 
--- Module Name: HA - Behavioral
+-- Module Name: MUX_2_to_1_4bit - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,16 +31,25 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity HA is
-    Port ( A : in STD_LOGIC;
-           B : in STD_LOGIC;
-           S : out STD_LOGIC;
-           C : out STD_LOGIC);
-end HA;
+entity MUX_2_to_1_4bit is
+    Port ( I0, I1 : in STD_LOGIC_VECTOR (3 downto 0);
+        EN : in STD_LOGIC;
+        Y : out STD_LOGIC_VECTOR (3 downto 0);
+        S : in STD_LOGIC);
+end MUX_2_to_1_4bit;
 
-architecture Behavioral of HA is
+architecture Behavioral of MUX_2_to_1_4bit is
 
+signal Sel : STD_LOGIC;
 begin
-    S <= A XOR B;
-    C <= A AND B;
+
+-- 0th bit of the 3 bit output
+Y(0) <= (Sel AND I0(0)) OR (NOT(Sel) AND I1(0));
+-- 1st bit of the 3 bit output
+Y(1) <= (Sel AND I0(1)) OR (NOT(Sel) AND I1(1));
+-- 2nd bit of the 3 bit output
+Y(2) <= (Sel AND I0(2)) OR (NOT(Sel) AND I1(2));
+-- 3rd bit of the 3 bit output
+Y(2) <= (Sel AND I0(3)) OR (NOT(Sel) AND I1(3));
+
 end Behavioral;
