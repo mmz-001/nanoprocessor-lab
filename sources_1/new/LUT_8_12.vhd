@@ -20,5 +20,5 @@ architecture Behavioral of LUT_8_12 is
             "110000000100" -- JZR R0 100
         );  
 begin
-    data <= sevenSegment_ROM(to_integer(unsigned(address)));
+    I <= sevenSegment_ROM(to_integer(unsigned(M)));
 end Behavioral;
