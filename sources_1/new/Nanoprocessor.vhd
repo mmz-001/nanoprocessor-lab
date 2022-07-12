@@ -140,6 +140,9 @@ signal mux_A_sel : std_logic_vector (2 downto 0);
 -- select for mux B 
 signal mux_B_sel : std_logic_vector (2 downto 0);
 
+signal MUX_2_4_sel:std_logic; -- select bit for 2 way 4 bit mux 
+signal I_val : std_logic_vector (3 downto 0);
+
 begin
 
     Reg_Bank : REG_4_BANK_8
@@ -216,5 +219,28 @@ begin
         sel_bus => mux_B_sel,
         out_bus => B_in);  
         
+    MUX_2_4bit : MUX_2_way_4_bit
+    
+        Port map( in_01 => I_val,
+           in_02 => sum_to_mux,
+           select_bit => MUX_2_4_sel,
+           out_bus => ins_mux_out);
+           
+           
+    INS_DEC : INS_DECODER
+        Port map (
+        I => ins_bus,
+        R => A_in,
+        R_En => reg_en, 
+        RA_Sel => mux_A_sel, 
+        RB_Sel => mux_B_sel, 
+        JMP_Add => Flag_val,
+        Load_Sel => MUX_2_4_sel , 
+        Add_Sub_Sel => add_sub_sel, 
+        JMP_Flag => flg_en,
+        Im_Val => I_val
+      );
+    
+    Out_LED<=R7;
     
 end Behavioral;
