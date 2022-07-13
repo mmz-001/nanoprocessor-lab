@@ -12,6 +12,11 @@ end Nanoprocessor;
 
 architecture Behavioral of Nanoprocessor is
 
+component Slow_Clk
+    Port ( Clk_in : in STD_LOGIC;
+       Clk_out : out STD_LOGIC);
+end component;
+
 component REG_4_BANK_8 
   Port (Res : in STD_LOGIC;
         R_En : in STD_LOGIC_VECTOR (2 downto 0); -- regeister select
@@ -149,6 +154,8 @@ signal Add_Sub_Overflow, Add_Sub_Zero : std_logic;
 -- Add_Sub_Flag output from INSTRUCTION_DECODER
 signal Add_Sub_Flag : std_logic;
 
+-- Slow clock signal
+signal clk_slow : std_logic;
 
 begin
 
@@ -158,10 +165,16 @@ begin
     zero <= Add_Sub_Zero and Add_Sub_Flag;
     overflow <= Add_Sub_Overflow and Add_Sub_Flag;
 
+    Slow_clock : Slow_Clk
+        Port Map(
+            Clk_in => clock,
+            Clk_out => clk_slow
+        );
+
     Reg_Bank : REG_4_BANK_8
         Port map(Res => reset,
             R_En => reg_en,
-            Clk  => clock,
+            Clk  => clk_slow,
             R_In => ins_mux_out,
             R_0  => R0,
             R_1  => R1,
@@ -175,7 +188,7 @@ begin
     
     PC : PC_3
         Port map (Res => reset,
-        Clk => clock,
+        Clk => clk_slow,
         D  => D_in,
         M  => M_out
    );
