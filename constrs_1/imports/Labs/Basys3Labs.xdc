@@ -4,15 +4,15 @@
 ## - rename the used ports (in each line, after get_ports) according to the top level signal names in the project
 
 ## Clock signal
-#set_property PACKAGE_PIN W5 [get_ports clk]
-	#set_property IOSTANDARD LVCMOS33 [get_ports clk]
-	#create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports clk]
+set_property PACKAGE_PIN W5 [get_ports clock]
+	set_property IOSTANDARD LVCMOS33 [get_ports clock]
+	create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports clock]
 
 ## Switches
-#set_property PACKAGE_PIN V17 [get_ports {sw[0]}]
-	#set_property IOSTANDARD LVCMOS33 [get_ports {sw[0]}]
-#set_property PACKAGE_PIN V16 [get_ports {sw[1]}]
-	#set_property IOSTANDARD LVCMOS33 [get_ports {sw[1]}]
+set_property PACKAGE_PIN V17 [get_ports {reset}]
+	set_property IOSTANDARD LVCMOS33 [get_ports {reset}]
+# set_property PACKAGE_PIN V16 [get_ports {sw[1]}]
+	# set_property IOSTANDARD LVCMOS33 [get_ports {sw[1]}]
 #set_property PACKAGE_PIN W16 [get_ports {sw[2]}]
 	#set_property IOSTANDARD LVCMOS33 [get_ports {sw[2]}]
 #set_property PACKAGE_PIN W17 [get_ports {sw[3]}]
@@ -44,14 +44,14 @@
 
 
 ## LEDs
-#set_property PACKAGE_PIN U16 [get_ports {led[0]}]
-	#set_property IOSTANDARD LVCMOS33 [get_ports {led[0]}]
-#set_property PACKAGE_PIN E19 [get_ports {led[1]}]
-	#set_property IOSTANDARD LVCMOS33 [get_ports {led[1]}]
-#set_property PACKAGE_PIN U19 [get_ports {led[2]}]
-	#set_property IOSTANDARD LVCMOS33 [get_ports {led[2]}]
-#set_property PACKAGE_PIN V19 [get_ports {led[3]}]
-	#set_property IOSTANDARD LVCMOS33 [get_ports {led[3]}]
+set_property PACKAGE_PIN U16 [get_ports {Out_LED[0]}]
+	set_property IOSTANDARD LVCMOS33 [get_ports {Out_LED[0]}]
+set_property PACKAGE_PIN E19 [get_ports {Out_LED[1]}]
+	set_property IOSTANDARD LVCMOS33 [get_ports {Out_LED[1]}]
+set_property PACKAGE_PIN U19 [get_ports {Out_LED[2]}]
+	set_property IOSTANDARD LVCMOS33 [get_ports {Out_LED[2]}]
+set_property PACKAGE_PIN V19 [get_ports {Out_LED[3]}]
+	set_property IOSTANDARD LVCMOS33 [get_ports {Out_LED[3]}]
 #set_property PACKAGE_PIN W18 [get_ports {led[4]}]
 	#set_property IOSTANDARD LVCMOS33 [get_ports {led[4]}]
 #set_property PACKAGE_PIN U15 [get_ports {led[5]}]
@@ -72,10 +72,10 @@
 	#set_property IOSTANDARD LVCMOS33 [get_ports {led[12]}]
 #set_property PACKAGE_PIN N3 [get_ports {led[13]}]
 	#set_property IOSTANDARD LVCMOS33 [get_ports {led[13]}]
-#set_property PACKAGE_PIN P1 [get_ports {led[14]}]
-	#set_property IOSTANDARD LVCMOS33 [get_ports {led[14]}]
-#set_property PACKAGE_PIN L1 [get_ports {led[15]}]
-	#set_property IOSTANDARD LVCMOS33 [get_ports {led[15]}]
+set_property PACKAGE_PIN P1 [get_ports {zero}]
+	set_property IOSTANDARD LVCMOS33 [get_ports {zero}]
+set_property PACKAGE_PIN L1 [get_ports {overflow}]
+	set_property IOSTANDARD LVCMOS33 [get_ports {overflow}]
 
 
 ##7 segment display
