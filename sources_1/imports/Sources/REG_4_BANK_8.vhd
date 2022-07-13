@@ -48,7 +48,7 @@ begin
 
   REG_4_0 : REG_4
     port map (
-      D => R_In,
+      D => "0000",  -- Hardcode R0 to "0000"
       En => R_Sel(0),
       Res => Res,
       Clk => Clk,
