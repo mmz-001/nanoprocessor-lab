@@ -1,10 +1,10 @@
 ----------------------------------------------------------------------------------
--- Company: University of Moratuwa
--- Engineer: Isuru Gunarathne
+-- Company: 
+-- Engineer: 
 -- 
--- Create Date: 05/26/2022 11:29:02 PM
+-- Create Date: 07/07/2022 03:03:02 PM
 -- Design Name: 
--- Module Name: HA - Behavioral
+-- Module Name: TB_3_RCA - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,18 +31,40 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity HA is
-    Port ( A : in STD_LOGIC;
-           B : in STD_LOGIC;
-           C : out STD_LOGIC;
-           S : out STD_LOGIC);
-end HA;
+entity TB_3_RCA is
+--  Port ( );
+end TB_3_RCA;
 
-architecture Behavioral of HA is
+architecture Behavioral of TB_3_RCA is
+component RCA_3
+    Port ( PC_in : in STD_LOGIC_VECTOR (2 downto 0);
+           PC_out : out STD_LOGIC_VECTOR (2 downto 0);
+           c_out : out std_logic);
+
+end component;       
+
+signal pcin : std_logic_vector(2 downto 0);
+signal pcout: std_logic_vector(2 downto 0);
+signal cout : std_logic;
 
 begin
-    C<=A AND B;
-    S<= A XOR B;
-    
+
+uut : RCA_3
+    port map(
+    pc_in => pcin,
+    pc_out => pcout,
+    c_out => cout);
+
+process
+begin
+
+pcin <="000";
+wait for 100 ns;
+pcin <="101";
+wait for 100 ns;
+pcin <="111";
+wait for 100 ns;
+
+end process;
 
 end Behavioral;

@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 07/07/2022 08:02:13 PM
+-- Create Date: 07/07/2022 08:04:32 PM
 -- Design Name: 
--- Module Name: MUX_2_way_4_bit - Behavioral
+-- Module Name: TB_MUX_2_way_4_bit - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,20 +31,41 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity MUX_2_way_4_bit is
-    Port ( in_01 : in STD_LOGIC_VECTOR (3 downto 0);
-           in_02 : in STD_LOGIC_VECTOR (3 downto 0);
-           select_bit : in STD_LOGIC;
-           out_bus : out STD_LOGIC_VECTOR (3 downto 0));
-end MUX_2_way_4_bit;
+entity TB_MUX_2_way_4_bit is
+--  Port ( );
+end TB_MUX_2_way_4_bit;
 
-architecture Behavioral of MUX_2_way_4_bit is
+architecture Behavioral of TB_MUX_2_way_4_bit is
+component MUX_2_way_4_bit
+
+Port ( in_01 : in STD_LOGIC_VECTOR (3 downto 0);
+       in_02 : in STD_LOGIC_VECTOR (3 downto 0);
+       select_bit : in STD_LOGIC;
+       out_bus : out STD_LOGIC_VECTOR (3 downto 0));
+end component;
+
+signal in1,in2,outbus : std_logic_vector(3 downto 0);
+signal sel : std_logic;
 
 begin
 
-with select_bit select out_bus <=
-    in_01 when '0', -- immediate value
-    in_02 when '1',
-    (others => 'U') when others;   
+UUT: MUX_2_way_4_bit
+port map(
+    in_01 =>in1,
+    in_02 =>in2,
+    select_bit => sel,
+    out_bus => outbus);
+
+process
+begin
+
+in1 <= "1111";
+in2 <= "0000";
+sel <= '0';
+wait for 100 ns;
+sel <= '1';
+wait for 100 ns;
+
+end process; 
 
 end Behavioral;

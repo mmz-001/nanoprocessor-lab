@@ -1,10 +1,10 @@
 ----------------------------------------------------------------------------------
--- Company: University of Moratuwa
--- Engineer: Isuru Gunarathne
+-- Company: 
+-- Engineer: 
 -- 
--- Create Date: 05/26/2022 11:29:02 PM
+-- Create Date: 07/11/2022 08:49:00 PM
 -- Design Name: 
--- Module Name: HA - Behavioral
+-- Module Name: TB_LUT_8_12 - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,18 +31,45 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity HA is
-    Port ( A : in STD_LOGIC;
-           B : in STD_LOGIC;
-           C : out STD_LOGIC;
-           S : out STD_LOGIC);
-end HA;
+entity TB_LUT_8_12 is
+--  Port ( );
+end TB_LUT_8_12;
 
-architecture Behavioral of HA is
+architecture Behavioral of TB_LUT_8_12 is
+
+component LUT_8_12
+    Port ( M : in STD_LOGIC_VECTOR (2 downto 0);
+           I : out STD_LOGIC_VECTOR (11 downto 0));
+end component; 
+
+signal m : std_logic_vector (2 downto 0);
+signal i : std_logic_vector (11 downto 0);
 
 begin
-    C<=A AND B;
-    S<= A XOR B;
-    
+UUT : LUT_8_12
+port map(
+    M => m,
+    I => i);
 
+process
+begin
+
+m<= "000";
+wait for 100 ns;
+m<= "001";
+wait for 100 ns;
+m<= "010";
+wait for 100 ns;
+m<= "011";
+wait for 100 ns;
+m<= "100";
+wait for 100 ns;
+m<= "101";
+wait for 100 ns;
+m<= "110";
+wait for 100 ns;
+m<= "111";
+wait;
+
+end process;
 end Behavioral;
