@@ -40,14 +40,13 @@ end MUX_2_to_1_3bit;
 
 architecture Behavioral of MUX_2_to_1_3bit is
 
-signal Sel : STD_LOGIC;
 begin
 
 -- 0th bit of the 3 bit output
-Y(0) <= (Sel AND I0(0)) OR (NOT(Sel) AND I1(0));
+Y(0) <= (S AND I0(0)) OR (NOT(S) AND I1(0));
 -- 1st bit of the 3 bit output
-Y(1) <= (Sel AND I0(1)) OR (NOT(Sel) AND I1(1));
+Y(1) <= (S AND I0(1)) OR (NOT(S) AND I1(1));
 -- 2nd bit of the 3 bit output
-Y(2) <= (Sel AND I0(2)) OR (NOT(Sel) AND I1(2));
+Y(2) <= (S AND I0(2)) OR (NOT(S) AND I1(2));
 
 end Behavioral;

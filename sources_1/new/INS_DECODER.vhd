@@ -48,30 +48,25 @@ architecture Behavioral of Ins_Decoder is
 signal choice : STD_LOGIC_VECTOR (1 downto 0);
 begin
 
--- Initially Set Jump Flag to Zero   
-    -- Choice signal
-    choice <= Ins(11 downto 10); 
-    -- Load Select
-    Load_Sel <= Ins(11) AND (NOT(Ins(10)));
-    -- Add Sub Select
-    Add_Sub_Sel <= Ins(10) AND (NOT(Ins(11)));
-    -- Immediate Value
-    Immediate_Val <= Ins(3 downto 0);
-    -- Enable register to store the output
-    Reg_En <= Ins(9 downto 7);
-    -- Register A
-    Reg_Sel_A <= Ins(9 downto 7);
-    -- Register B
-    Reg_Sel_B <= Ins(6 downto 4);
-
-
-process(choice)
+process(Ins)
 begin
-    
+    choice <= Ins(11 downto 10);
     if(choice="11") then
-        if(Jump_Chk_Reg="0000") then
-            Jump_F <= '1'; Jump_address<=Ins(2 downto 0); 
-        end if;
+        Jump_F <= '1';
+        Jump_address <= Ins(2 downto 0);
+    else
+        -- Load Select
+        Load_Sel <= Ins(11) AND (NOT(Ins(10)));
+        -- Add Sub Select
+        Add_Sub_Sel <= Ins(10) AND (NOT(Ins(11)));
+        -- Immediate Value
+        Immediate_Val <= Ins(3 downto 0);
+        -- Enable register to store the output
+        Reg_En <= Ins(9 downto 7);
+        -- Register A
+        Reg_Sel_A <= Ins(9 downto 7);
+        -- Register B
+        Reg_Sel_B <= Ins(6 downto 4);
     end if;
-end process;
+ end process;
 end Behavioral;

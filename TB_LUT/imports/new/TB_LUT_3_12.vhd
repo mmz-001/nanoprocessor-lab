@@ -2,9 +2,9 @@
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 07/08/2022 07:27:40 AM
+-- Create Date: 07/12/2022 09:12:52 PM
 -- Design Name: 
--- Module Name: RCA_3 - Behavioral
+-- Module Name: TB_LUT_3_12 - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,33 +31,42 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity RCA_3 is
-    Port (
-    A : in STD_LOGIC_VECTOR (2 downto 0); 
-    S : out STD_LOGIC_VECTOR (2 downto 0)); 
-end RCA_3;
+entity TB_LUT_3_12 is
+--  Port ( );
+end TB_LUT_3_12;
 
-architecture Behavioral of RCA_3 is
-component RCA_4
-    Port ( 
-    AddSubSel : in STD_LOGIC;
-    A, B : in STD_LOGIC_VECTOR (3 downto 0); 
-    S : out STD_LOGIC_VECTOR (3 downto 0);  
-    C_out : out STD_LOGIC;
-    Zero : out STD_LOGIC);
+architecture Behavioral of TB_LUT_3_12 is
+component LUT_3_12
+    Port ( address : in STD_LOGIC_VECTOR (2 downto 0);
+       D_out : out STD_LOGIC_VECTOR (11 downto 0));
 end component;
 
-signal A1, S1 : STD_LOGIC_VECTOR (3 downto 0);
+signal address : STD_LOGIC_VECTOR (2 downto 0);
+signal D_out : STD_LOGIC_VECTOR (11 downto 0);
+
 begin
 
-RCA_4_0 : RCA_4
-Port Map(
-    AddSubSel => '0',
-    A => A1,
-    B => "0001",
-    S => S1
+UUT : LUT_3_12
+PORT MAP(
+    address=>address,
+    D_out => D_out
 );
 
-A1(0) <= A(0); A1(1) <= A(1); A1(2) <= A(2); A1(3) <= '0';
-S(0) <= S1(0); S(1) <= S1(1); S(2) <= S1(2);   
+process
+begin
+    address <= "000";
+    wait for 200 ns;
+    
+    address <= "001";
+    wait for 200 ns;
+    
+    address <= "010";
+    wait for 200 ns;
+    
+    address <= "100";
+    wait for 200 ns;
+    
+
+end process;
+
 end Behavioral;

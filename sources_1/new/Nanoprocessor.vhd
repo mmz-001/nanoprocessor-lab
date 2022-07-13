@@ -34,7 +34,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity NanoProcessor is
     Port ( Clk : in STD_LOGIC;
            Reset, EN : in STD_LOGIC;
-           Led_sum : out STD_LOGIC_VECTOR (7 downto 0);
+           Led_sum : out STD_LOGIC_VECTOR (3 downto 0);
            Led_zero : out STD_LOGIC;
            Led_carry : out STD_LOGIC);
 end NanoProcessor;
@@ -120,7 +120,8 @@ end component;
 signal Clk_out : STD_LOGIC;
 
 ----------- Register Bank and Instruction Decoder --------------
-signal D, RegSel : STD_LOGIC_VECTOR (3 downto 0);
+signal D: STD_LOGIC_VECTOR (3 downto 0);
+signal RegSel : STD_LOGIC_VECTOR (2 downto 0);
 signal I0,I1,I2,I3,I4,I5,I6,I7 : STD_LOGIC_VECTOR (3 downto 0);
 ----------------------------------------
 
@@ -212,21 +213,11 @@ PORT MAP(
     Ins=>Ins,
     Jump_Chk_Reg=>JumpCheckReg,
     Reg_En=>RegSel,
-    Reg_Sel_A=>RegSelA, Reg_Sel_B=>RegSelB,Add_Sub_Sel=>AddSubSel,
+    Reg_Sel_A=>RegSelA, Reg_Sel_B=>RegSelB, Add_Sub_Sel=>AddSubSel,
     Immediate_Val=>Immediate_Value, Load_Sel=>LoadSel,
     Jump_F => JumpF, Jump_address => JumpAddress
 );
 ---------------------------------
-
------- 2 way 3 bit MUX -----------
-MUX_2_to_1_3bit_0 : MUX_2_to_1_3bit
-PORT MAP(
-    EN=>EN,
-    I0=>SumRCA3, I1=>JumpAddress,
-    S => JumpF,
-    Y => PC_in
-);
-----------------------------------
 
 -------- 3 bit adder -------------
 RCA_3_0 : RCA_3
@@ -235,11 +226,21 @@ PORT MAP(
     );
 ----------------------------------
 
+------ 2 way 3 bit MUX -----------
+MUX_2_to_1_3bit_0 : MUX_2_to_1_3bit
+PORT MAP(
+    EN=>EN,
+    I1=>SumRCA3, I0=>JumpAddress,
+    S => JumpF,
+    Y => PC_in
+);
+----------------------------------
+
 ------- Program Counter ----------
 PC_0 : PC
 PORT MAP(
     En=>EN, Reset=>Reset,
-    Clk=>Clk,
+    Clk=>Clk_out,
     A=>PC_in, S=>MemSel
    );
 
@@ -255,4 +256,7 @@ PORT MAP(
 Led_sum <= I7;
 --- Jump Check Register
 JumpCheckReg <= M0;
+
+-- Clk signal
+Clk_out <= Clk; 
 end Behavioral;

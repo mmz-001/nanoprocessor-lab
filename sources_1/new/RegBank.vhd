@@ -35,7 +35,8 @@ entity RegBank is
     Port ( D : in STD_LOGIC_VECTOR (3 downto 0);
            RegSel : in STD_LOGIC_VECTOR (2 downto 0);
            Clk, Reset : in STD_LOGIC;
-           I0, I1, I2, I3, I4, I5, I6, I7 : out STD_LOGIC_VECTOR (3 downto 0));
+           I0 : out STD_LOGIC_VECTOR (3 downto 0) := "0000"; -- Hardcode value of R0 to all zeros
+           I1, I2, I3, I4, I5, I6, I7 : out STD_LOGIC_VECTOR (3 downto 0));
 end RegBank;
 
 architecture Behavioral of RegBank is
@@ -53,7 +54,7 @@ component Decoder_3_to_8
            Y : out STD_LOGIC_VECTOR (7 downto 0));
 end component;
 
-signal En0 : STD_LOGIC;
+signal EN0 : STD_LOGIC := '1';
 signal YD : STD_LOGIC_VECTOR (7 downto 0);
 
 begin
@@ -67,15 +68,8 @@ Decoder_3_to_8_0 : Decoder_3_to_8
     );
 
 -- Register Bank have 8 Registers
--- Hardcode value of R0 to all zeros
-Reg0 : Reg
-    PORT MAP(
-        D => "0000",
-        EN => YD(0), Reset => Reset,
-        Clk => Clk,
-        Q => I0
-    );
-    
+
+
 Reg1 : Reg
     PORT MAP(
         D => D,
@@ -132,8 +126,6 @@ Reg7 : Reg
         Clk => Clk,
         Q => I7
     );
-
--- Hardcode value of R0 to all zeros at beginning
 
 
 end Behavioral;
