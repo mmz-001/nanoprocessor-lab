@@ -56,6 +56,7 @@ begin
     elsif Ins = "11" then
       -- JZR R, d 
       
+      R_En <= "000";
       RA_Sel <= I (9 downto 7); -- opening mux to said register 
       -- now R will get the value in that register 
       
