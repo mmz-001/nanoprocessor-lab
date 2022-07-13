@@ -90,7 +90,7 @@ component INS_DECODER
     I : in STD_LOGIC_VECTOR (11 downto 0); -- 12 bit instruction
     R : in STD_LOGIC_VECTOR (3 downto 0);
     R_En, RA_Sel, RB_Sel, JMP_Add : out STD_LOGIC_VECTOR (2 downto 0);
-    Load_Sel, Add_Sub_Sel, JMP_Flag : out STD_LOGIC;
+    Load_Sel, Add_Sub_Sel, JMP_Flag, Add_Sub_Flag : out STD_LOGIC;
     Im_Val : out STD_LOGIC_VECTOR (3 downto 0)
   );
 
@@ -143,7 +143,20 @@ signal mux_B_sel : std_logic_vector (2 downto 0);
 signal MUX_2_4_sel:std_logic; -- select bit for 2 way 4 bit mux 
 signal I_val : std_logic_vector (3 downto 0);
 
+-- Output from ADD_SUB_4
+signal Add_Sub_Overflow, Add_Sub_Zero : std_logic;
+
+-- Add_Sub_Flag output from INSTRUCTION_DECODER
+signal Add_Sub_Flag : std_logic;
+
+
 begin
+
+    -- Activate zero and overflow flags only when
+    -- performing using ADD_SUB_4 unit
+
+    zero <= Add_Sub_Zero and Add_Sub_Flag;
+    overflow <= Add_Sub_Overflow and Add_Sub_Flag;
 
     Reg_Bank : REG_4_BANK_8
         Port map(Res => reset,
@@ -190,8 +203,8 @@ begin
          B => B_in,
          Neg => add_sub_sel,
          S => sum_to_mux,
-         Overflow =>overflow,
-         Zero => zero);
+         Overflow =>Add_Sub_Overflow,
+         Zero => Add_Sub_Zero);
                 
     MUX_A : MUX_8_way_4_bit
         port map(
@@ -238,6 +251,7 @@ begin
         Load_Sel => MUX_2_4_sel , 
         Add_Sub_Sel => add_sub_sel, 
         JMP_Flag => flg_en,
+        Add_Sub_Flag => Add_Sub_Flag,
         Im_Val => I_val
       );
     

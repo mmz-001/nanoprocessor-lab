@@ -7,7 +7,7 @@ entity INS_DECODER is
     I : in STD_LOGIC_VECTOR (11 downto 0); -- 12 bit instruction
     R : in STD_LOGIC_VECTOR (3 downto 0);
     R_En, RA_Sel, RB_Sel, JMP_Add : out STD_LOGIC_VECTOR (2 downto 0);
-    Load_Sel, Add_Sub_Sel, JMP_Flag : out STD_LOGIC;
+    Load_Sel, Add_Sub_Sel, JMP_Flag, Add_Sub_Flag : out STD_LOGIC;
     Im_Val : out STD_LOGIC_VECTOR (3 downto 0)
   );
 end INS_DECODER;
@@ -30,6 +30,7 @@ begin
     RB_Sel <= I(6 downto 4);
     Load_Sel <= '0';
     Add_Sub_Sel <= '0';
+    Add_Sub_Flag <= '0';
     
     if Ins = "10" then
       -- MOVI R, d
@@ -44,6 +45,7 @@ begin
       RA_Sel <= I (9 downto 7);
       RB_Sel <= I (6 downto 4);
       R_En <= I (9 downto 7);
+      Add_Sub_Flag <= '1';
 
     elsif Ins = "01" then
       -- NEG R
@@ -52,6 +54,7 @@ begin
       RB_Sel <= I (9 downto 7);
       Add_Sub_Sel <= '1';
       R_En <= I (9 downto 7);
+      Add_Sub_Flag <= '1';
 
     elsif Ins = "11" then
       -- JZR R, d 
