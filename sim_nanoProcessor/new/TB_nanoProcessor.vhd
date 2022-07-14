@@ -63,13 +63,13 @@ port map (
 process -- process for clock 
 begin
 clk <= not clk;
-wait for 20 ns;
+wait for 2 ns;
 end process;
 
 process -- main process 
 begin
 reset <='1';
-wait for 40 ns;
+wait for 100 ns;
 reset <='0';
 wait;
 end process;
