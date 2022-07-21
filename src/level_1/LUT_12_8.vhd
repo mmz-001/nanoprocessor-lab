@@ -3,7 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
 entity LUT_12_8 is
-    Port ( M : in STD_LOGIC_VECTOR (2 downto 0);
+    Port ( D : in STD_LOGIC_VECTOR (2 downto 0);
            I : out STD_LOGIC_VECTOR (11 downto 0));
 end LUT_12_8;
 
@@ -21,5 +21,5 @@ architecture Behavioral of LUT_12_8 is
             
         );  
 begin
-    I <= Seven_Segment_ROM(to_integer(unsigned(M)));
+    I <= Seven_Segment_ROM(to_integer(unsigned(D)));
 end Behavioral;

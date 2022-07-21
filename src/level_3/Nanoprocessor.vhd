@@ -2,22 +2,22 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
 entity Nanoprocessor is
-    port(Out_LED : out std_logic_vector (3 downto 0);
-        overflow : out std_logic;
-        zero : out std_logic;
-        clock : in std_logic;
-        reset : in std_logic);
+    port(Out_LED : out STD_LOGIC_VECTOR (3 downto 0);
+        Overflow : out STD_LOGIC;
+        Zero : out STD_LOGIC;
+        Clk : in STD_LOGIC;
+        Res : in STD_LOGIC);
         
 end Nanoprocessor;
 
 architecture Behavioral of Nanoprocessor is
 
 component Slow_Clk
-    Port ( Clk_in : in STD_LOGIC;
-       Clk_out : out STD_LOGIC);
+    Port ( Clk_In : in STD_LOGIC;
+           Clk_Out : out STD_LOGIC);
 end component;
 
-component REG_4_BANK_8 
+component Reg_8_4 
   Port (Res : in STD_LOGIC;
         R_En : in STD_LOGIC_VECTOR (2 downto 0); -- regeister select
         Clk : in STD_LOGIC;
@@ -33,7 +33,7 @@ component REG_4_BANK_8
   );
 end component;
 
-component MUX_8_way_4_bit
+component MUX_8_4
     Port ( A0 : in STD_LOGIC_VECTOR (3 downto 0);
            A1 : in STD_LOGIC_VECTOR (3 downto 0);
            A2 : in STD_LOGIC_VECTOR (3 downto 0);
@@ -42,140 +42,140 @@ component MUX_8_way_4_bit
            A5 : in STD_LOGIC_VECTOR (3 downto 0);
            A6 : in STD_LOGIC_VECTOR (3 downto 0);
            A7 : in STD_LOGIC_VECTOR (3 downto 0);
-           sel_bus : in STD_LOGIC_VECTOR (2 downto 0);
-           out_bus : out STD_LOGIC_VECTOR (3 downto 0));
+           Sel : in STD_LOGIC_VECTOR (2 downto 0);
+           Q : out STD_LOGIC_VECTOR (3 downto 0));
 end component;
 
-component ADD_SUB_4
+component Add_Sub_4
   Port ( A : in STD_LOGIC_VECTOR (3 downto 0);
          B : in STD_LOGIC_VECTOR (3 downto 0);
          Neg : in STD_LOGIC;
-         S : out STD_LOGIC_VECTOR (3 downto 0);
+         Sum : out STD_LOGIC_VECTOR (3 downto 0);
          Overflow : out STD_LOGIC;
          Zero : out STD_LOGIC);
 end component;
 
-component MUX_2_way_4_bit
-    Port ( in_01 : in STD_LOGIC_VECTOR (3 downto 0);
-           in_02 : in STD_LOGIC_VECTOR (3 downto 0);
-           select_bit : in STD_LOGIC;
-           out_bus : out STD_LOGIC_VECTOR (3 downto 0));
+component MUX_2_4
+    Port ( A : in STD_LOGIC_VECTOR (3 downto 0);
+           B : in STD_LOGIC_VECTOR (3 downto 0);
+           Sel : in STD_LOGIC;
+           Q : out STD_LOGIC_VECTOR (3 downto 0));
 
 end component;
 
 component RCA_3
-    Port ( PC_in : in STD_LOGIC_VECTOR (2 downto 0);
-           PC_out : out STD_LOGIC_VECTOR (2 downto 0);
-           c_out : out std_logic);
+    Port ( D : in STD_LOGIC_VECTOR (2 downto 0);
+           Q : out STD_LOGIC_VECTOR (2 downto 0);
+           Carry_Out : out STD_LOGIC);
 end component;
 
-component MUX_2_way_3_bit
-    Port ( adder_in : in STD_LOGIC_VECTOR (2 downto 0);
-           jump_in : in STD_LOGIC_VECTOR (2 downto 0);
-           Jump_flag : in STD_LOGIC;
-           out_bus : out STD_LOGIC_VECTOR (2 downto 0));
+component MUX_2_3
+    Port ( A : in STD_LOGIC_VECTOR (2 downto 0);
+           B : in STD_LOGIC_VECTOR (2 downto 0);
+           Sel : in STD_LOGIC;
+           Q : out STD_LOGIC_VECTOR (2 downto 0));
 end component;
 
 component PC_3
   Port (Res : in STD_LOGIC;
         Clk : in STD_LOGIC;
         D : in STD_LOGIC_VECTOR (2 downto 0);
-        M : out STD_LOGIC_VECTOR (2 downto 0)
+        Q : out STD_LOGIC_VECTOR (2 downto 0)
    );
 end component;
 
-component LUT_8_12
-    Port ( M : in STD_LOGIC_VECTOR (2 downto 0);
+component LUT_12_8
+    Port ( Q : in STD_LOGIC_VECTOR (2 downto 0);
            I : out STD_LOGIC_VECTOR (11 downto 0));
 end component;
 
-component INS_DECODER
-
+component Ins_Decoder_12
   Port (
     I : in STD_LOGIC_VECTOR (11 downto 0); -- 12 bit instruction
-    R : in STD_LOGIC_VECTOR (3 downto 0);
-    R_En, RA_Sel, RB_Sel, JMP_Add : out STD_LOGIC_VECTOR (2 downto 0);
-    Load_Sel, Add_Sub_Sel, JMP_Flag, Add_Sub_Flag : out STD_LOGIC;
+    R_In : in STD_LOGIC_VECTOR (3 downto 0);
+    R_En, RA_Sel, RB_Sel, Jmp_Addr : out STD_LOGIC_VECTOR (2 downto 0);
+    Load_Sel, Add_Sub_Sel, Jmp_Flag, Add_Sub_Flag : out STD_LOGIC;
     Im_Val : out STD_LOGIC_VECTOR (3 downto 0)
   );
 
 end component;
 
-signal reg_en : std_logic_vector (2 downto 0);
-signal ins_mux_out : std_logic_vector (3 downto 0);
+signal R_En : STD_LOGIC_VECTOR (2 downto 0);
+signal Ins_Mux : STD_LOGIC_VECTOR (3 downto 0);
 
 -- data bus from register bank to the 2 4 bit MUXes 
-signal R0 : std_logic_vector (3 downto 0);
-signal R1 : std_logic_vector (3 downto 0);
-signal R2 : std_logic_vector (3 downto 0);
-signal R3 : std_logic_vector (3 downto 0);
-signal R4 : std_logic_vector (3 downto 0);
-signal R5 : std_logic_vector (3 downto 0);
-signal R6 : std_logic_vector (3 downto 0);
-signal R7 : std_logic_vector (3 downto 0);
+signal R0 : STD_LOGIC_VECTOR (3 downto 0);
+signal R1 : STD_LOGIC_VECTOR (3 downto 0);
+signal R2 : STD_LOGIC_VECTOR (3 downto 0);
+signal R3 : STD_LOGIC_VECTOR (3 downto 0);
+signal R4 : STD_LOGIC_VECTOR (3 downto 0);
+signal R5 : STD_LOGIC_VECTOR (3 downto 0);
+signal R6 : STD_LOGIC_VECTOR (3 downto 0);
+signal R7 : STD_LOGIC_VECTOR (3 downto 0);
 
 -- instruction bus (from ROM to decoder)
-signal ins_bus : std_logic_vector (11 downto 0);
+signal I : STD_LOGIC_VECTOR (11 downto 0);
 
 -- address from 2 way 3 bit mux
-signal D_in : std_logic_vector (2 downto 0);
+signal D_In : STD_LOGIC_VECTOR (2 downto 0);
 
 -- ouput from program counter 
-signal M_out : std_logic_vector (2 downto 0);
+signal M : STD_LOGIC_VECTOR (2 downto 0);
 
-signal to_mux_2_3 : std_logic_vector (2 downto 0);
-signal pc_carry : std_logic;
+signal To_Mux_2_3 : STD_LOGIC_VECTOR (2 downto 0);
+signal PC_Carry : STD_LOGIC;
 
 -- Flag address 
-signal Flag_val : std_logic_vector (2 downto 0);
+signal Flag_Val : STD_LOGIC_VECTOR (2 downto 0);
 -- flag enable 
-signal flg_en : std_logic;
+signal Flag_En : STD_LOGIC;
 
 -- value from add sub unit going to 2 way 4 bit mux 
-signal sum_to_mux : std_logic_vector (3 downto 0);
+signal Sum_To_Mux : STD_LOGIC_VECTOR (3 downto 0);
 
-signal add_sub_sel: std_logic;
+signal Add_Sub_Sel: STD_LOGIC;
 
 -- data from the 2 8 way 4 bit MUXes to the add/sub unit 
-signal A_in : std_logic_vector (3 downto 0);
-signal B_in : std_logic_vector (3 downto 0);
+signal A_in : STD_LOGIC_VECTOR (3 downto 0);
+signal B_in : STD_LOGIC_VECTOR (3 downto 0);
 
 -- select for mux A 
-signal mux_A_sel : std_logic_vector (2 downto 0);
+signal MUX_A_Sel : STD_LOGIC_VECTOR (2 downto 0);
 -- select for mux B 
-signal mux_B_sel : std_logic_vector (2 downto 0);
+signal MUX_B_Sel : STD_LOGIC_VECTOR (2 downto 0);
 
-signal MUX_2_4_sel:std_logic; -- select bit for 2 way 4 bit mux 
-signal I_val : std_logic_vector (3 downto 0);
+signal MUX_2_4_Sel:STD_LOGIC; -- select bit for 2 way 4 bit mux 
+signal I_Val : STD_LOGIC_VECTOR (3 downto 0);
 
--- Output from ADD_SUB_4
-signal Add_Sub_Overflow, Add_Sub_Zero : std_logic;
+-- Output from Add_Sub_4
+signal Add_Sub_Overflow, Add_Sub_Zero : STD_LOGIC;
 
 -- Add_Sub_Flag output from INSTRUCTION_DECODER
-signal Add_Sub_Flag : std_logic;
+signal Add_Sub_Flag : STD_LOGIC;
 
--- Slow clock signal
-signal clk_slow : std_logic;
+-- Slow Clk signal
+signal Clk_Slow : STD_LOGIC;
 
 begin
 
-    -- Activate zero and overflow flags only when
-    -- performing using ADD_SUB_4 unit
+    -- Activate Zero and Overflow flags only when
+    -- performing using Add_Sub_4 unit
 
-    zero <= Add_Sub_Zero and Add_Sub_Flag;
-    overflow <= Add_Sub_Overflow and Add_Sub_Flag;
+    Zero <= Add_Sub_Zero and Add_Sub_Flag;
+    Overflow <= Add_Sub_Overflow and Add_Sub_Flag;
 
-    Slow_clock : Slow_Clk
+    Slow_Clk_0 : Slow_Clk
         Port Map(
-            Clk_in => clock,
-            Clk_out => clk_slow
+            Clk_In => Clk,
+            Clk_Out => Clk_Slow
         );
 
-    Reg_Bank : REG_4_BANK_8
-        Port map(Res => reset,
-            R_En => reg_en,
-            Clk  => clk_slow,
-            R_In => ins_mux_out,
+    Reg_8_4_0 : Reg_8_4
+        Port map(
+            Res => Res,
+            R_En => R_En,
+            Clk  => Clk_Slow,
+            R_In => Ins_Mux,
             R_0  => R0,
             R_1  => R1,
             R_2  => R2,
@@ -186,40 +186,42 @@ begin
             R_7  => R7
     );
     
-    PC : PC_3
-        Port map (Res => reset,
-        Clk => clk_slow,
-        D  => D_in,
-        M  => M_out
+    PC_3_0 : PC_3
+        Port map (
+        Res => Res,
+        Clk => Clk_Slow,
+        D  => D_In,
+        Q  => M
    );
 
-    P_ROM : LUT_8_12
-        Port map ( M => M_out,
-           I => ins_bus );
+    LUT_12_8_0 : LUT_12_8
+        Port map ( 
+            Q => M,
+            I => I );
 
-    ADD_3_bit : RCA_3
+    RCA_3_0 : RCA_3
         port map(
-        PC_in => M_out ,
-        PC_out=> to_mux_2_3,
-        c_out => PC_carry );
+        D => M ,
+        Q=> To_Mux_2_3,
+        Carry_Out => PC_carry );
         
-    MUX_2_3_bit : MUX_2_way_3_bit
+    MUX_2_3_0 : MUX_2_3
         port map(
-        adder_in => to_mux_2_3,
-        jump_in => Flag_val,
-        Jump_flag => flg_en,
-        out_bus => D_in);
+        A => To_Mux_2_3,
+        B => Flag_Val,
+        Sel => Flag_En,
+        Q => D_In);
         
-    ADD_SUB : ADD_SUB_4
+    Add_Sub_4_0 : Add_Sub_4
         port map (
          A => A_in,
          B => B_in,
-         Neg => add_sub_sel,
-         S => sum_to_mux,
+         Neg => Add_Sub_Sel,
+         Sum => Sum_To_Mux,
          Overflow =>Add_Sub_Overflow,
          Zero => Add_Sub_Zero);
                 
-    MUX_A : MUX_8_way_4_bit
+    MUX_8_4_0 : MUX_8_4
         port map(
         A0 => R0,
         A1 => R1,
@@ -229,10 +231,10 @@ begin
         A5 => R5,
         A6 => R6,
         A7 => R7,
-        sel_bus => mux_A_sel,
-        out_bus => A_in);  
+        Sel => MUX_A_Sel,
+        Q => A_in);  
 
-    MUX_B : MUX_8_way_4_bit
+    MUX_8_4_1 : MUX_8_4
         port map(
         A0 => R0,
         A1 => R1,
@@ -242,32 +244,32 @@ begin
         A5 => R5,
         A6 => R6,
         A7 => R7,
-        sel_bus => mux_B_sel,
-        out_bus => B_in);  
+        Sel => MUX_B_Sel,
+        Q => B_in);  
         
-    MUX_2_4bit : MUX_2_way_4_bit
+    MUX_2_4_0 : MUX_2_4
     
-        Port map( in_01 => I_val,
-           in_02 => sum_to_mux,
-           select_bit => MUX_2_4_sel,
-           out_bus => ins_mux_out);
+        Port map( A => I_Val,
+           B => Sum_To_Mux,
+           Sel => MUX_2_4_Sel,
+           Q => Ins_Mux);
            
            
-    INS_DEC : INS_DECODER
+    Ins_Decoder_12_0 : Ins_Decoder_12
         Port map (
-        I => ins_bus,
-        R => A_in,
-        R_En => reg_en, 
-        RA_Sel => mux_A_sel, 
-        RB_Sel => mux_B_sel, 
-        JMP_Add => Flag_val,
-        Load_Sel => MUX_2_4_sel , 
-        Add_Sub_Sel => add_sub_sel, 
-        JMP_Flag => flg_en,
+        I => I,
+        R_In => A_in,
+        R_En => R_En, 
+        RA_Sel => MUX_A_Sel, 
+        RB_Sel => MUX_B_Sel, 
+        Jmp_Addr => Flag_Val,
+        Load_Sel => MUX_2_4_Sel , 
+        Add_Sub_Sel => Add_Sub_Sel, 
+        Jmp_Flag => Flag_En,
         Add_Sub_Flag => Add_Sub_Flag,
-        Im_Val => I_val
+        Im_Val => I_Val
       );
     
-    Out_LED<=R7;
+    Out_LED <= R7;
     
 end Behavioral;

@@ -5,13 +5,13 @@ entity PC_3 is
   Port (Res : in STD_LOGIC;
         Clk : in STD_LOGIC;
         D : in STD_LOGIC_VECTOR (2 downto 0);
-        M : out STD_LOGIC_VECTOR (2 downto 0)
+        Q : out STD_LOGIC_VECTOR (2 downto 0)
    );
   end PC_3;
 
 architecture Behavioral of PC_3 is
 
-  component D_FF 
+  component DFF_4 
     Port ( D : in STD_LOGIC;
            Res : in STD_LOGIC;
            Clk : in STD_LOGIC;
@@ -19,28 +19,28 @@ architecture Behavioral of PC_3 is
   end component;
 
 begin
-  D_FF_0 : D_FF
+  DFF_4_0 : DFF_4
     port map (
       D => D(0),
       Res => Res,
       Clk => Clk,
-      Q => M(0)
+      Q => Q(0)
     );
 
-  D_FF_1 : D_FF
+  DFF_4_1 : DFF_4
     port map (
       D => D(1),
       Res => Res,
       Clk => Clk,
-      Q => M(1)
+      Q => Q(1)
     );
 
-  D_FF_2 : D_FF
+  DFF_4_2 : DFF_4
     port map (
       D => D(2),
       Res => Res,
       Clk => Clk,
-      Q => M(2)
+      Q => Q(2)
     );
 
 end Behavioral;

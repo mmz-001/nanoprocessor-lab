@@ -4,13 +4,13 @@
 ## - rename the used ports (in each line, after get_ports) according to the top level signal names in the project
 
 ## Clock signal
-set_property PACKAGE_PIN W5 [get_ports clock]
-	set_property IOSTANDARD LVCMOS33 [get_ports clock]
-	create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports clock]
+set_property PACKAGE_PIN W5 [get_ports Clk]
+	set_property IOSTANDARD LVCMOS33 [get_ports Clk]
+	create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports Clk]
 
 ## Switches
-set_property PACKAGE_PIN V17 [get_ports {reset}]
-	set_property IOSTANDARD LVCMOS33 [get_ports {reset}]
+set_property PACKAGE_PIN V17 [get_ports {Res}]
+	set_property IOSTANDARD LVCMOS33 [get_ports {Res}]
 # set_property PACKAGE_PIN V16 [get_ports {sw[1]}]
 	# set_property IOSTANDARD LVCMOS33 [get_ports {sw[1]}]
 #set_property PACKAGE_PIN W16 [get_ports {sw[2]}]
@@ -72,10 +72,10 @@ set_property PACKAGE_PIN V19 [get_ports {Out_LED[3]}]
 	#set_property IOSTANDARD LVCMOS33 [get_ports {led[12]}]
 #set_property PACKAGE_PIN N3 [get_ports {led[13]}]
 	#set_property IOSTANDARD LVCMOS33 [get_ports {led[13]}]
-set_property PACKAGE_PIN P1 [get_ports {zero}]
-	set_property IOSTANDARD LVCMOS33 [get_ports {zero}]
-set_property PACKAGE_PIN L1 [get_ports {overflow}]
-	set_property IOSTANDARD LVCMOS33 [get_ports {overflow}]
+set_property PACKAGE_PIN P1 [get_ports {Zero}]
+	set_property IOSTANDARD LVCMOS33 [get_ports {Zero}]
+set_property PACKAGE_PIN L1 [get_ports {Overflow}]
+	set_property IOSTANDARD LVCMOS33 [get_ports {Overflow}]
 
 
 ##7 segment display

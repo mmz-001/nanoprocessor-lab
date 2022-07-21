@@ -1,20 +1,20 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
-entity PC_3_Sim is
-end PC_3_Sim;
+entity PC_3_TB is
+end PC_3_TB;
 
-architecture Behavioral of PC_3_Sim is
+architecture Behavioral of PC_3_TB is
   component PC_3
     Port (Res : in STD_LOGIC;
           Clk : in STD_LOGIC;
           D : in STD_LOGIC_VECTOR (2 downto 0);
-          M : out STD_LOGIC_VECTOR (2 downto 0)
+          Q : out STD_LOGIC_VECTOR (2 downto 0)
   );
   end component;
 
   signal Res, Clk : STD_LOGIC := '0';
-  signal D, M : STD_LOGIC_VECTOR (2 downto 0);
+  signal D, Q : STD_LOGIC_VECTOR (2 downto 0);
 
 begin
 
@@ -23,7 +23,7 @@ begin
       Res => Res,
       Clk => Clk,
       D => D,
-      M => M
+      Q => Q
     );
 
   process begin

@@ -1,11 +1,11 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
-entity REG_4_BANK_8_Sim is
-end REG_4_BANK_8_Sim;
+entity Reg_8_4 is
+end Reg_8_4;
 
-architecture Behavioral of REG_4_BANK_8_Sim is
-  component REG_4_BANK_8
+architecture Behavioral of Reg_8_4 is
+  component Reg_8_4
     port (Res : in STD_LOGIC;
           R_En : in STD_LOGIC_VECTOR (2 downto 0);
           Clk : in STD_LOGIC;
@@ -28,7 +28,7 @@ architecture Behavioral of REG_4_BANK_8_Sim is
 
 
 begin
-  uut : REG_4_BANK_8
+  uut : Reg_8_4
     port map (
       Res => Res,
       Clk => Clk,

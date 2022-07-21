@@ -14,16 +14,17 @@
 ## Naming Conventions
 
 - Use descriptive names for signals or components unless specified otherwise.
-  - Descriptive: Clk and Res. Specification: I, M, R. Can use D, A (including A0, A1,...), B for inputs and Q for outputs.
+  - Descriptive: Clk and Res. Specification: I and R for instructions and registers. Can use D, A (including A0, A1,...), B for inputs and Q for outputs.
 - Entity, component, and signal names should be in Pascal_Snake_Case. Abbreviations and acronyms should be in UPPERCASE.
   - Reg_4, Add_Sub_4, D_FF_4, PC_3, MUX_8_To_1.
 - Component names should include the number of bits and/or number of sub-components and/or in/out wires used. The number of bits should be the last suffix
   - PC_3 (3-bit), LUT_12_8 (12 8-bit LUTs), Reg_8_4 (8 4-bit register bank).
+- When using components use '\_0', '\_1' suffixes after the components name.
+  - PC_3_0, Reg_4_0, Reg_4_1, Ins_Decoder_12_0
 - Use CONSTANT_CASE for types and operators.
   - STD_LOGIC_VECTOR, IEEE.STD_LOGIC_1164.ALL, AND, OR, XOR.
 - Use '\_Addr' suffix for addresses
   - Jump_Addr.
-- Do **not** use '\_In' and '\_Out' suffixes for port signal names. When these are connected to other signals with similar suffixes, your code can become very confusing.
 - Use '\_TB' suffix for test bench source files
   - Reg_4_TB
 

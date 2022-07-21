@@ -1,7 +1,7 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
-entity REG_4_BANK_8 is
+entity Reg_8_4 is
   Port (Res : in STD_LOGIC;
         R_En : in STD_LOGIC_VECTOR (2 downto 0); -- regeister select
         Clk : in STD_LOGIC;
@@ -15,19 +15,19 @@ entity REG_4_BANK_8 is
         R_6 : out STD_LOGIC_VECTOR (3 downto 0);
         R_7 : out STD_LOGIC_VECTOR (3 downto 0)
   );
-end REG_4_BANK_8;
+end Reg_8_4;
 
-architecture Behavioral of REG_4_BANK_8 is
+architecture Behavioral of Reg_8_4 is
 
-  component Decoder_3_to_8
+  component Decoder_3_8
     port (
-      I : in STD_LOGIC_VECTOR (2 downto 0);
-      EN : in STD_LOGIC;
-      Y : out STD_LOGIC_VECTOR (7 downto 0)
+      D : in STD_LOGIC_VECTOR (2 downto 0);
+      En : in STD_LOGIC;
+      Q : out STD_LOGIC_VECTOR (7 downto 0)
     );
   end component;
 
-  component REG_4 
+  component Reg_4 
     port ( D : in STD_LOGIC_VECTOR (3 downto 0);
            Res : in STD_LOGIC;
            En : in STD_LOGIC;
@@ -39,14 +39,14 @@ architecture Behavioral of REG_4_BANK_8 is
   signal R_Sel : STD_LOGIC_VECTOR (7 downto 0);
 
 begin
-  Decoder_3_to_8_0 : Decoder_3_to_8
+  Decoder_3_8_0 : Decoder_3_8
     port map (
-      I => R_En,
-      EN => '1',
-      Y => R_Sel
+      D => R_En,
+      En => '1',
+      Q => R_Sel
     );
 
-  REG_4_0 : REG_4
+  Red_4_0 : Reg_4
     port map (
       D => "0000",  -- Hardcode R0 to "0000"
       En => R_Sel(0),
@@ -55,7 +55,7 @@ begin
       Q => R_0
     );
   
-  REG_4_1 : REG_4
+  Red_4_1 : Reg_4
     port map (
       D => R_In,
       En => R_Sel(1),
@@ -64,7 +64,7 @@ begin
       Q => R_1
     );
   
-  REG_4_2 : REG_4
+  Red_4_2 : Reg_4
     port map (
       D => R_In,
       En => R_Sel(2),
@@ -73,7 +73,7 @@ begin
       Q => R_2
     );
   
-  REG_4_3 : REG_4
+  Red_4_3 : Reg_4
     port map (
       D => R_In,
       En => R_Sel(3),
@@ -82,7 +82,7 @@ begin
       Q => R_3
     );
   
-  REG_4_4 : REG_4
+  Red_4_4 : Reg_4
     port map (
       D => R_In,
       En => R_Sel(4),
@@ -91,7 +91,7 @@ begin
       Q => R_4
     );
   
-  REG_4_5 : REG_4
+  Red_4_5 : Reg_4
     port map (
       D => R_In,
       En => R_Sel(5),
@@ -100,7 +100,7 @@ begin
       Q => R_5
     );
   
-  REG_4_6 : REG_4
+  Red_4_6 : Reg_4
     port map (
       D => R_In,
       En => R_Sel(6),
@@ -109,7 +109,7 @@ begin
       Q => R_6
     );
   
-  REG_4_7 : REG_4
+  Red_4_7 : Reg_4
     port map (
       D => R_In,
       En => R_Sel(7),
@@ -118,7 +118,7 @@ begin
       Q => R_7
     );
   
--- R_sel(1) = '1' means register 1 is activated 
+-- R_En(1) = '1' means register 1 is activated 
 
 
 end Behavioral;

@@ -1,29 +1,29 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
-entity ADD_SUB_4 is
+entity Add_Sub_4 is
   Port ( A : in STD_LOGIC_VECTOR (3 downto 0);
          B : in STD_LOGIC_VECTOR (3 downto 0);
          Neg : in STD_LOGIC;
-         S : out STD_LOGIC_VECTOR (3 downto 0);
+         Sum : out STD_LOGIC_VECTOR (3 downto 0);
          Overflow : out STD_LOGIC;
          Zero : out STD_LOGIC);
-end ADD_SUB_4;
+end Add_Sub_4;
 
-architecture Behavioral of ADD_SUB_4 is
+architecture Behavioral of Add_Sub_4 is
   component FA
   port (
-      A, B, C_in: in std_logic;
-      S, C_out: out std_logic
+      A, B, Carry_In: in STD_LOGIC;
+      Sum, Carry_Out: out STD_LOGIC
   );
   end component;
 
-  signal C0 : std_logic;
-  signal C1 : std_logic;
-  signal C2 : std_logic;
-  signal C3 : std_logic;
+  signal Carry_0 : STD_LOGIC;
+  signal Carry_1 : STD_LOGIC;
+  signal Carry_2 : STD_LOGIC;
+  signal Carry_3 : STD_LOGIC;
   signal B_Neg : STD_LOGIC_VECTOR (3 downto 0);
-  signal S_Out : STD_LOGIC_VECTOR (3 downto 0);
+  signal Sum_Out : STD_LOGIC_VECTOR (3 downto 0);
   
 begin
 
@@ -42,40 +42,40 @@ begin
     port map (
       A => A(0),
       B => B_Neg(0),
-      C_in => Neg,
-      S => S_Out(0),
-      C_Out => C0
+      Carry_In => Neg,
+      Sum => Sum_Out(0),
+      C_Out => Carry_0
     );
   
   FA_1 : FA
     port map (
       A => A(1),
       B => B_Neg(1),
-      C_in => C0,
-      S => S_Out(1),
-      C_Out => C1
+      Carry_In => Carry_0,
+      Sum => Sum_Out(1),
+      C_Out => Carry_1
     );
   
   FA_2 : FA
     port map (
       A => A(2),
       B => B_Neg(2),
-      C_in => C1,
-      S => S_Out(2),
-      C_Out => C2
+      Carry_In => Carry_1,
+      Sum => Sum_Out(2),
+      C_Out => Carry_2
     );  
 
   FA_3 : FA
     port map (
       A => A(3),
       B => B_Neg(3),
-      C_in => C2,
-      S => S_Out(3),
-      C_Out => C3
+      Carry_In => Carry_2,
+      Sum => Sum_Out(3),
+      C_Out => Carry_3
     );
   
-  Overflow <= C3 XOR C2;
-  Zero <= NOT (S_Out(0) OR S_Out(1) OR S_Out(2) or S_Out(3));
-  S <= S_Out;
+  Overflow <= Carry_3 XOR Carry_2;
+  Zero <= NOT (Sum_Out(0) OR Sum_Out(1) OR Sum_Out(2) or Sum_Out(3));
+  Sum <= Sum_Out;
 
 end Behavioral;

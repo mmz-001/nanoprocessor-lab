@@ -1,11 +1,11 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
-entity REG_4_Sim is
-end REG_4_Sim;
+entity Reg_4_TB is
+end Reg_4_TB;
 
-architecture Behavioral of REG_4_Sim is
-  component REG_4
+architecture Behavioral of Reg_4_TB is
+  component Reg_4
     Port (D : in STD_LOGIC_VECTOR (3 downto 0);
           Res : in STD_LOGIC;
           Clk : in STD_LOGIC;
@@ -20,7 +20,7 @@ architecture Behavioral of REG_4_Sim is
   
 
 begin
-  uut : REG_4
+  uut : Reg_4
     port map(
       D => D,
       Res => Res,
