@@ -2,23 +2,23 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
 entity Slow_Clk is
-    Port ( Clk_in : in STD_LOGIC;
-           Clk_out : out STD_LOGIC);
+    Port ( D : in STD_LOGIC;
+           Q : out STD_LOGIC);
 end Slow_Clk;
 
 architecture Behavioral of Slow_Clk is
 
-signal count : integer := 1;
-signal clk_status : STD_LOGIC := '0';
+signal Count : integer := 1;
+signal Clk_Status : STD_LOGIC := '0';
 
 begin
-    process (Clk_in) begin
-        if (rising_edge(Clk_in)) then
-            count <= count + 1;
-            if (count = 100000000) then -- Count 100000000 cycles to keep clock cycle to 2 seconds
-                clk_status <= not clk_status;
-                Clk_out <= clk_status;
-                count <= 1;
+    process (D) begin
+        if (rising_edge(D)) then
+            Count <= Count + 1;
+            if (Count = 100000000) then -- Count 100000000 cycles to keep clock cycle to 2 seconds
+                Clk_Status <= not Clk_Status;
+                Q <= Clk_Status;
+                Count <= 1;
             end if;
         end if;
     end process;

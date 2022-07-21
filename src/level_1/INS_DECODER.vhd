@@ -1,18 +1,18 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use ieee.numeric_std.all;
+use IEEE.NUMERIC_STD.ALL;
 
-entity INS_DECODER is
+entity Ins_Decoder is
   Port (
     I : in STD_LOGIC_VECTOR (11 downto 0); -- 12 bit instruction
-    R : in STD_LOGIC_VECTOR (3 downto 0);
-    R_En, RA_Sel, RB_Sel, JMP_Add : out STD_LOGIC_VECTOR (2 downto 0);
-    Load_Sel, Add_Sub_Sel, JMP_Flag, Add_Sub_Flag : out STD_LOGIC;
+    R : in STD_LOGIC_VECTOR (3 downto 0);  -- Input Register
+    R_En, RA_Sel, RB_Sel, Jmp_Addr : out STD_LOGIC_VECTOR (2 downto 0);
+    Load_Sel, Add_Sub_Sel, Jmp_Flag, Add_Sub_Flag : out STD_LOGIC;
     Im_Val : out STD_LOGIC_VECTOR (3 downto 0)
   );
-end INS_DECODER;
+end Ins_Decoder;
 
-architecture Behavioral of INS_DECODER is
+architecture Behavioral of Ins_Decoder is
 
   signal Ins : STD_LOGIC_VECTOR (1 downto 0);
   
@@ -22,8 +22,8 @@ begin
   process (I, Ins, R) 
   begin
 
-    JMP_Flag <= '0';
-    JMP_Add <= I(2 downto 0);
+    Jmp_Flag <= '0';
+    Jmp_Addr <= I(2 downto 0);
     Im_Val <= I(3 downto 0);
     R_En <= I(9 downto 7);
     RA_Sel <= I(9 downto 7);
@@ -63,11 +63,11 @@ begin
       RA_Sel <= I (9 downto 7); -- opening mux to said register 
       -- now R will get the value in that register 
       
-      JMP_Add <= I (2 downto 0);
+      Jmp_Addr <= I (2 downto 0);
       if R = "0000" then
-        JMP_Flag <= '1';
+        Jmp_Flag <= '1';
       else
-        JMP_Flag <= '0';
+        Jmp_Flag <= '0';
       end if;
 
     end if;
