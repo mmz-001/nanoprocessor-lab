@@ -9,7 +9,7 @@ end LUT_12_8;
 
 architecture Behavioral of LUT_12_8 is
     type rom_type is array (0 to 7) of std_logic_vector(11 downto 0);
-        signal Seven_Segment_ROM : rom_type :=(
+        signal Instruction_ROM : rom_type :=(
            "101110000000",-- MOVI R7, 0000
            "100010000011",-- MOVI R1, 0011
            "100100000001",-- MOVI R2, 0001
@@ -21,5 +21,5 @@ architecture Behavioral of LUT_12_8 is
             
         );  
 begin
-    I <= Seven_Segment_ROM(to_integer(unsigned(D)));
+    I <= Instruction_ROM(to_integer(unsigned(D)));
 end Behavioral;

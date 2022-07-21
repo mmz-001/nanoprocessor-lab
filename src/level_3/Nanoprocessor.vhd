@@ -85,7 +85,7 @@ component PC_3
 end component;
 
 component LUT_12_8
-    Port ( Q : in STD_LOGIC_VECTOR (2 downto 0);
+    Port ( D : in STD_LOGIC_VECTOR (2 downto 0);
            I : out STD_LOGIC_VECTOR (11 downto 0));
 end component;
 
@@ -196,7 +196,7 @@ begin
 
     LUT_12_8_0 : LUT_12_8
         Port map ( 
-            Q => M,
+            D => M,
             I => I );
 
     RCA_3_0 : RCA_3

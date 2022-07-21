@@ -1,10 +1,10 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
-entity Reg_8_4 is
-end Reg_8_4;
+entity Reg_8_4_TB is
+end Reg_8_4_TB;
 
-architecture Behavioral of Reg_8_4 is
+architecture Behavioral of Reg_8_4_TB is
   component Reg_8_4
     port (Res : in STD_LOGIC;
           R_En : in STD_LOGIC_VECTOR (2 downto 0);

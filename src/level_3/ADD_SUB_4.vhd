@@ -44,7 +44,7 @@ begin
       B => B_Neg(0),
       Carry_In => Neg,
       Sum => Sum_Out(0),
-      C_Out => Carry_0
+      Carry_Out => Carry_0
     );
   
   FA_1 : FA
@@ -53,7 +53,7 @@ begin
       B => B_Neg(1),
       Carry_In => Carry_0,
       Sum => Sum_Out(1),
-      C_Out => Carry_1
+      Carry_Out => Carry_1
     );
   
   FA_2 : FA
@@ -62,7 +62,7 @@ begin
       B => B_Neg(2),
       Carry_In => Carry_1,
       Sum => Sum_Out(2),
-      C_Out => Carry_2
+      Carry_Out => Carry_2
     );  
 
   FA_3 : FA
@@ -71,7 +71,7 @@ begin
       B => B_Neg(3),
       Carry_In => Carry_2,
       Sum => Sum_Out(3),
-      C_Out => Carry_3
+      Carry_Out => Carry_3
     );
   
   Overflow <= Carry_3 XOR Carry_2;

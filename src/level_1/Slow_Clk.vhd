@@ -15,7 +15,7 @@ begin
     process (Clk_In) begin
         if (rising_edge(Clk_In)) then
             Count <= Count + 1;
-            if (Count = 100000000) then -- Count 100000000 cycles to keep clock cycle to 2 seconds
+            if (Count = 5) then -- Count 100000000 cycles to keep clock cycle to 2 seconds
                 Clk_Status <= not Clk_Status;
                 Clk_Out <= Clk_Status;
                 Count <= 1;
