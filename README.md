@@ -5,14 +5,21 @@ A nanoprocessor capable of executing a set of simple instructions.
 ## TODO
 
 - [x] Display output in 7-segment display
-- [ ] 8-bit registers
-- [ ] Add 32 registers to Program ROM
-- [ ] Add additional flags
-  - [ ] Zero Flag (Zero)
-  - [ ] Overflow Flag (Overflow)
-  - [ ] Interrupt flag (Interrupt)
-  - [ ] Negative flag (Negative)
-- [ ] Add additional instructions (16 16-bit instructions) and modify existing instructions (Check instruction set below for additional details).
+- [ ] Make required components
+  - [ ] 8-bit registers
+  - [ ] Add 32 8-bit registers to Program ROM
+  - [ ] MUXes
+  - [ ] Decoders and encoder
+  - [ ] 7-Segment Processing Unit
+  - [ ] 8-Bit Add/Sub Unit
+  - [ ] 8-Bit Div/Mod Unit
+  - [ ] 8-Bit Mul Unit
+  - [ ] 8-Bit Inc/Dec Unit
+  - [ ] Register bank
+  - [ ] Instruction Decoder
+  - [ ] Hex-To-Decimal Converter
+  - [ ] 7-Segment Graphics Adapter
+- [ ] Add additional instructions (16 16-bit instructions) and modify existing instructions (Check instruction set below for additional details)
   - [ ] MOVI
   - [ ] ADD
   - [ ] NEG
@@ -29,9 +36,8 @@ A nanoprocessor capable of executing a set of simple instructions.
   - [ ] JINT
   - [ ] INC
   - [ ] DEC
-- [ ] Create a compiler for the new instructions.
-- [ ] Display output in 7-segment display in decimal (Use a separate component for conversion).
-- [ ] Create a non-trivial program to illustrate the additional features (e.g, a calculator for with ADD, SUB, MUL, and DIV operations that can take input from the BASYS3 board).
+- [ ] Create a compiler for the new instructions
+- [ ] Create a non-trivial program to illustrate the additional features (e.g, a calculator for with ADD, SUB, MUL, and DIV operations that can take input from the BASYS3 board)
 
 ## Instruction set
 
