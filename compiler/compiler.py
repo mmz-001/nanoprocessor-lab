@@ -34,7 +34,7 @@ def valid_register(reg: str):
 
 if __name__ == "__main__":
     if len(sys.argv) == 1:
-        print("Enter input file name")
+        print("Pass input file name as an argument")
         quit()
 
     # Input file name is second argument
@@ -42,6 +42,7 @@ if __name__ == "__main__":
     # Output file as .txt with same name as input file
     output_file_name = input_file_name.split('.')[0] + ".txt"
 
+    # Read instructions from file
     instructions = []
     with open(input_file_name, "r") as f:
         for line in f.readlines():
@@ -56,7 +57,7 @@ if __name__ == "__main__":
     # Separate operator and operands
     instructions = [x.split() for x in instructions]
 
-    # Create hash map
+    # Create instruction map
     instruction_map = dict()
     for instruction in instructions:
         if instruction[0] not in INSTRUCTION_SET:
@@ -85,7 +86,7 @@ if __name__ == "__main__":
             valid_address(operands[1])
             operand_code += "0" * 4 + hex_to_bin(operands[1], 5)
         elif operator in ["JS", "JO", "JINT"]:
-            valid_address(operands[1])
+            valid_address(operands[0])
             operand_code += "0" * 7 + hex_to_bin(operands[0], 5)
         elif operator == "IN":
             operand_code += "0" * 8 + hex_to_bin(operands[1], 1)
@@ -94,4 +95,7 @@ if __name__ == "__main__":
 
         machine_codes.append(MAPPING[operator] + operand_code)
 
-    print(*machine_codes, sep='\n')
+    # Write machine code to file
+    with open(output_file_name, "w") as f:
+        for line in machine_codes:
+            f.write(line + "\n")
