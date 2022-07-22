@@ -12,7 +12,7 @@ A nanoprocessor capable of executing a set of simple instructions.
   - [ ] Overflow Flag (Overflow)
   - [ ] Interrupt flag (Interrupt)
   - [ ] Negative flag (Negative)
-- [ ] Add additional instructions (16 16-bit instructions) and modify existing instructions (Check instruction set for additional details).
+- [ ] Add additional instructions (16 16-bit instructions) and modify existing instructions (Check instruction set below for additional details).
   - [ ] MOVI
   - [ ] ADD
   - [ ] NEG
@@ -35,7 +35,7 @@ A nanoprocessor capable of executing a set of simple instructions.
 
 ## Instruction set
 
-<!-- Disable  word wrap to display table correctly-->
+<!-- Disable word wrap to display table correctly-->
 
 | Instruction | Description                                                                                                                                             | Machine Code (16-bit)                   | Flags Set                 |
 | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- | ------------------------- |
@@ -46,7 +46,7 @@ A nanoprocessor capable of executing a set of simple instructions.
 | `MOV RA RB` | Move value in register `RB` to `RA`                                                                                                                     | `0 1 0 0 RA[0..2] RB[0..2] 0 0 0 0 0 0` | -                         |
 | `MUL RA RB` | Multiply value in `RA` with value in `RB` and store the result in `RA`                                                                                  | `0 1 0 1 RA[0..2] RB[0..2] 0 0 0 0 0 0` | Zero, Overflow, Negative  |
 | `DIV RA RB` | Divide value in `RA` by value in `RB` and store the result in `RA`. If value in `RB` is zero set `Interrupt` flag                                       | `0 1 1 0 RA[0..2] RB[0..2] 0 0 0 0 0 0` | Zero, Negative, Interrupt |
-| `DIV RA RB` | Calculate mod of value in `RA` with value in `RB` and store the result in `RA`. If value in `RB` is zero set `Interrupt` flag                           | `0 1 1 1 RA[0..2] RB[0..2] 0 0 0 0 0 0` | Zero, Negative, Interrupt |
+| `MOD RA RB` | Calculate mod of value in `RA` with value in `RB` and store the result in `RA`. If value in `RB` is zero set `Interrupt` flag                           | `0 1 1 1 RA[0..2] RB[0..2] 0 0 0 0 0 0` | Zero, Negative, Interrupt |
 | `IN R P`    | Take input from port `P` and store the result in register `R`                                                                                           | `1 0 0 0 R[0..2] 0 0 0 0 0 0 P[0..2]`   | -                         |
 | `CMP RA RB` | Compare value in `RA` with value in `RB` and if the values are equal set `Zero` flag, if RA is less than RB set `Negative` flag, otherwise set no flags | `1 0 0 1 RA[0..2] RB[0..2] 0 0 0 0 0 0` | Zero, Negative            |
 | `HALT`      | Halt execution.                                                                                                                                         | `1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0`       | -                         |
