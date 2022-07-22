@@ -23,9 +23,11 @@
   - PC_3_0, Reg_4_0, Reg_4_1, Ins_Decoder_12_0
 - Use CONSTANT_CASE for types and operators.
   - STD_LOGIC_VECTOR, IEEE.STD_LOGIC_1164.ALL, AND, OR, XOR.
-- Use '\_Addr' suffix for addresses
+- Use '\_Addr' suffix for addresses.
   - Jump_Addr.
-- Use '\_TB' suffix for test bench source files
+- Use '\_L' suffix for active low signals.
+  - Anode_L
+- Use '\_TB' suffix for test bench source files.
   - Reg_4_TB
 
 ## Folder structure

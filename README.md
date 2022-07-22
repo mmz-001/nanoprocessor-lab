@@ -4,7 +4,7 @@ A nanoprocessor capable of executing a set of simple instructions.
 
 ## TODO
 
-- [ ] Display output in 7-segment display
+- [x] Display output in 7-segment display
 - [ ] 8-bit registers
 - [ ] Add 32 registers to Program ROM
 - [ ] Add additional flags
