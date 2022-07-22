@@ -2,6 +2,14 @@
 
 A nanoprocessor capable of executing a set of simple instructions.
 
+# Features
+
+- 8-bit registers
+- 16 16-bit instructions
+- 7-segment processing unit
+- 32 instructions can be stored in ROM
+- Flags for overflow, zero, negative, and interrupt
+
 ## Instruction set
 
 <!-- Disable word wrap to display table correctly-->
@@ -27,7 +35,7 @@ A nanoprocessor capable of executing a set of simple instructions.
 
 ## Compiler
 
-The compiler is used to compile instructions written in `.asm` format to machine code text files. The usage of the compiler is described below.
+The compiler is used to compile instructions written in `.asm` format to machine code. The usage of the compiler is described below.
 
 Open up the terminal and go the `compiler` folder.
 
@@ -55,6 +63,7 @@ The syntax for the assembly files is quite simple. The available instructions ar
   - [ ] Program ROM with 32 8-bit registers
   - [ ] MUXes
   - [ ] Decoders and encoder
+  - [ ] Program Counter
   - [ ] 7-Segment Processing Unit
   - [ ] 8-Bit Add/Sub Unit
   - [ ] 8-Bit Div/Mod Unit
@@ -64,7 +73,7 @@ The syntax for the assembly files is quite simple. The available instructions ar
   - [ ] Instruction Decoder
   - [ ] Hex-To-Decimal Converter
   - [ ] 7-Segment Graphics Adapter
-- [ ] Add additional instructions (16 16-bit instructions) and modify existing instructions (Check instruction set below for additional details)
+- [ ] Add instructions (16 16-bit instructions, Check instruction set below for additional details)
   - [ ] MOVI
   - [ ] ADD
   - [ ] NEG
