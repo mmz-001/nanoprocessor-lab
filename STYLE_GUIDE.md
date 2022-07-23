@@ -45,3 +45,5 @@
 - Test bench source files are placed in the `sim` folder with the same organizational hierarchy as the `src` folder.
 - BASYS3 constraint files are stored in `constrs` folder.
 - Bitstream files are stored in the `build` folder.
+- Schematic diagrams are stored in the `schematic` folder.
+- Compiler source files are stored in the `compiler` folder.
