@@ -8,7 +8,7 @@ entity LUT_16_7 is
 end LUT_16_7;
 
 architecture Behavioral of LUT_16_7 is
-    type rom_type is array (0 to 15) of std_logic_vector(6 downto 0);
+    type rom_type is array (0 to 15) of STD_LOGIC_VECTOR(6 downto 0);
         signal sevenSegment_ROM : rom_type :=(
             "1000000",-- 0
             "1111001",-- 1
