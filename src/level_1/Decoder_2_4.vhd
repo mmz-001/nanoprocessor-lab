@@ -10,7 +10,7 @@ end Decoder_2_4;
 architecture Behavioral of Decoder_2_4 is
     
 begin
-    process(D)
+    process (D, En)
     begin
         Q(0)<= En AND NOT D(1) AND NOT D(0);
         Q(1)<= En AND NOT D(1) AND D(0);
