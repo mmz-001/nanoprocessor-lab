@@ -6,7 +6,7 @@ end Counter_2_TB;
 
 architecture Behavioral of Counter_2_TB is
     component Counter_2
-        Port( Clk_in : in STD_LOGIC;
+        Port( Clk_In : in STD_LOGIC;
               Q : out STD_LOGIC_VECTOR(1 downto 0) );
     end component;
 
