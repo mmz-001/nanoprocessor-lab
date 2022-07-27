@@ -15,7 +15,7 @@ begin
     process (Clk_In) begin
         if (rising_edge(Clk_In)) then
             Count <= Count + 1;
-            if (Count = 208333) then -- Count 208333 cycles to keep refresh rate to 60Hz 
+            if (Count = 104167) then -- Count 104167 cycles to keep refresh rate to 120Hz.
                 Clk_Status <= not Clk_Status;
                 Clk_Out <= Clk_Status;
                 Count <= 1;

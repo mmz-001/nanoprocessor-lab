@@ -20,7 +20,7 @@ architecture Behavioral of SPU_8_Test is
 begin
     SPU_8_0 : SPU_8
     Port Map (
-        I => "10000101", -- 123
+        I => "10000101", -- -123
         Flags => "0000",
         Clk => Clk,
         Seven_Seg_Out_L => Seven_Seg_Out_L,
