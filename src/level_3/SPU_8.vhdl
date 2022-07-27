@@ -51,7 +51,7 @@ begin
 
     SGA_8_0 : SGA_8
     Port Map (
-        Clk => Clk,
+        Clk => Clk_Slow,
         Sign => Sign,
         Ones => Ones,
         Tens => Tens,
