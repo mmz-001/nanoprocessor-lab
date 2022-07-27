@@ -39,13 +39,13 @@ begin
     begin
         Flags <= "0000";
         I <= "00000010";  -- 2
-        wait for 400 ns;
+        wait for 500 ns;
 
         I <= "00010000"; -- 16
-        wait for 400 ns;
+        wait for 500 ns;
 
         I <= "11111111"; -- -1
-        wait for 400 ns;
+        wait for 500 ns;
 
         I <= "01111111"; -- 127
         wait;
