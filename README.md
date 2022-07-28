@@ -2,6 +2,7 @@
 
 A nanoprocessor capable of executing a set of simple instructions.
 
+</br>
 # Features
 
 - 8-bit registers
@@ -9,10 +10,12 @@ A nanoprocessor capable of executing a set of simple instructions.
 - 7-segment processing unit
 - 32 instructions can be stored in ROM
 - Flags for overflow, zero, negative, and interrupt
-
+</br>
 ## Schematic
 
 ![Schematic](schematic/schematic.png)
+
+</br>
 
 ## Instruction set
 
@@ -37,6 +40,7 @@ A nanoprocessor capable of executing a set of simple instructions.
 | `INC R`     | Increment value in register `R`                                                                                                                                              | `1 1 1 0 R[0..2] 0 0 0 0 0 0 0 0 0`     | Zero, Negative, Overflow  |
 | `DEC R`     | Decrement value in register `R`                                                                                                                                              | `1 1 1 1 R[0..2] 0 0 0 0 0 0 0 0 0`     | Zero, Negative, Overflow  |
 
+</br>
 ## Compiler
 
 The compiler is used to compile instructions written in `.asm` format to machine code. The usage of the compiler is described below.
@@ -55,28 +59,31 @@ python compiler.py test.asm
 
 Machine code will be written to a text file with the same name as the input source file.
 
+</br>
 ### Assembly Syntax
 
 The syntax for the assembly files is quite simple. The available instructions are described in the instruction set table. Registers are named from R0 to R7. Literal values are in hexadecimal. Comments can be added with the `;` symbol. See `test.asm` for an example.
+
+</br>
 
 ## TODO
 
 - [x] Display output in 7-segment display
 - [ ] Make required components
-  - [ ] 8-bit registers
+  - [x] 8-bit registers
   - [ ] Program ROM with 32 8-bit registers
-  - [ ] MUXes
-  - [ ] Decoders and encoder
-  - [ ] Program Counter
-  - [ ] 7-Segment Processing Unit
-  - [ ] 8-Bit Add/Sub Unit
+  - [x] MUXes
+  - [x] Decoders and encoder
+  - [x] Program Counter
+  - [x] 7-Segment Processing Unit
+  - [x] 8-Bit Add/Sub Unit
   - [ ] 8-Bit Div/Mod Unit
   - [ ] 8-Bit Mul Unit
   - [ ] 8-Bit Inc/Dec Unit
-  - [ ] Register bank
+  - [x] Register bank
   - [ ] Instruction Decoder
-  - [ ] Hex-To-Decimal Converter
-  - [ ] 7-Segment Graphics Adapter
+  - [x] Hex-To-Decimal Converter
+  - [x] 7-Segment Graphics Adapter
 - [ ] Add instructions (16 16-bit instructions, Check instruction set below for additional details)
   - [ ] MOVI
   - [ ] ADD
