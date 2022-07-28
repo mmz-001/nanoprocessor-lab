@@ -10,6 +10,10 @@ A nanoprocessor capable of executing a set of simple instructions.
 - 32 instructions can be stored in ROM
 - Flags for overflow, zero, negative, and interrupt
 
+## Schematic
+
+![Schematic](schematic/schematic.png)
+
 ## Instruction set
 
 <!-- Disable word wrap to display table correctly-->
