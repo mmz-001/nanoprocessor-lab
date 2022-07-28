@@ -2,7 +2,7 @@
 
 A nanoprocessor capable of executing a set of simple instructions.
 
-</br>
+
 # Features
 
 - 8-bit registers
@@ -10,7 +10,7 @@ A nanoprocessor capable of executing a set of simple instructions.
 - 7-segment processing unit
 - 32 instructions can be stored in ROM
 - Flags for overflow, zero, negative, and interrupt
-</br>
+
 ## Schematic
 
 ![Schematic](schematic/schematic.png)
@@ -40,7 +40,7 @@ A nanoprocessor capable of executing a set of simple instructions.
 | `INC R`     | Increment value in register `R`                                                                                                                                              | `1 1 1 0 R[0..2] 0 0 0 0 0 0 0 0 0`     | Zero, Negative, Overflow  |
 | `DEC R`     | Decrement value in register `R`                                                                                                                                              | `1 1 1 1 R[0..2] 0 0 0 0 0 0 0 0 0`     | Zero, Negative, Overflow  |
 
-</br>
+
 ## Compiler
 
 The compiler is used to compile instructions written in `.asm` format to machine code. The usage of the compiler is described below.
@@ -59,12 +59,12 @@ python compiler.py test.asm
 
 Machine code will be written to a text file with the same name as the input source file.
 
-</br>
+
 ### Assembly Syntax
 
 The syntax for the assembly files is quite simple. The available instructions are described in the instruction set table. Registers are named from R0 to R7. Literal values are in hexadecimal. Comments can be added with the `;` symbol. See `test.asm` for an example.
 
-</br>
+
 
 ## TODO
 
