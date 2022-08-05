@@ -10,6 +10,7 @@ entity Ins_Decoder_12 is
     Load_Sel, Add_Sub_Sel, Jmp_Flag, Add_Sub_Flag : out STD_LOGIC;
     Im_Val : out STD_LOGIC_VECTOR (3 downto 0)
   );
+  
 end Ins_Decoder_12;
 
 architecture Behavioral of Ins_Decoder_12 is
@@ -34,17 +35,11 @@ begin
     
     if Ins = "10" then
       -- MOVI R_In, d
-      Load_Sel <= '0';
       Im_Val <= I (3 downto 0);
-      R_En <= I (9 downto 7);
 
     elsif Ins = "00" then
       -- ADD Ra, Rb 
       Load_Sel <= '1';
-      Add_Sub_Sel <= '0'; -- adding 
-      RA_Sel <= I (9 downto 7);
-      RB_Sel <= I (6 downto 4);
-      R_En <= I (9 downto 7);
       Add_Sub_Flag <= '1';
 
     elsif Ins = "01" then
@@ -53,21 +48,15 @@ begin
       RA_Sel <= "000"; -- register 0 has value 0
       RB_Sel <= I (9 downto 7);
       Add_Sub_Sel <= '1';
-      R_En <= I (9 downto 7);
       Add_Sub_Flag <= '1';
 
     elsif Ins = "11" then
       -- JZR R_In, d 
-      
       R_En <= "000";
-      RA_Sel <= I (9 downto 7); -- opening mux to said register 
-      -- now R_In will get the value in that register 
       
       Jmp_Addr <= I (2 downto 0);
       if R_In = "0000" then
         Jmp_Flag <= '1';
-      else
-        Jmp_Flag <= '0';
       end if;
 
     end if;
