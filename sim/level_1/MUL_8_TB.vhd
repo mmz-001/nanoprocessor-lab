@@ -49,6 +49,11 @@ wait for 100 ns;
 a <= "00000111"; -- 7 
 b <= "11111011"; -- -5
 wait for 100 ns;
+
+a <= "00110011"; -- 51
+b <= "00001010"; -- 10
+wait for 100 ns;
+
 wait;
 end process;
 

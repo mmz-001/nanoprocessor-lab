@@ -11,19 +11,22 @@ end MUL_8;
 
 architecture Behavioral of MUL_8 is
 
-signal A_Cut, B_Cut : STD_LOGIC_VECTOR (3 downto 0);
-signal Q_Buffer : STD_LOGIC_VECTOR (7 downto 0);
+signal Q_out, Q_overflow : STD_LOGIC_VECTOR (7 downto 0);
+signal Q_Buffer : STD_LOGIC_VECTOR (15 downto 0);
+
 
 begin
 
-A_Cut <= A (3 downto 0);
-B_Cut <= B (3 downto 0);
-Q_Buffer <= STD_LOGIC_VECTOR(signed(A_Cut) * signed(B_Cut));
-Q <= Q_Buffer;
+Q_Buffer <= STD_LOGIC_VECTOR(signed(A) * signed(B));
+Q_out <= Q_Buffer(7 downto 0);
+Q_overflow <= Q_Buffer(15 downto 8);
 
-FLAG (0) <= Q_Buffer(7) XOR Q_Buffer(6); -- Overflow 
-FLAG (1) <= not(Q_Buffer(0) or Q_Buffer(1) or Q_Buffer(2) or Q_Buffer(3) or Q_Buffer(4) or Q_Buffer(5) or Q_Buffer(6) or Q_Buffer(7)); -- Zero 
-FLAG (2) <= Q_Buffer(7); -- Negative 
+Q <= Q_out;
+
+FLAG (0) <= Q_overflow(0) xor Q_overflow(1) xor Q_overflow(2) xor Q_overflow(3) xor Q_overflow(4) xor Q_overflow(5) xor Q_overflow(6) xor Q_overflow(7); -- overflow
+FLAG (1) <= not(Q_out(0) or Q_out(1) or Q_out(2) or Q_out(3) or Q_out(4) or Q_out(5) or Q_out(6) or Q_out(7)); -- Zero 
+FLAG (2) <= Q_out(7); -- Negative 
+
 FLAG (3) <= '0'; -- Interrupt, have to map this to something. 
 
 
