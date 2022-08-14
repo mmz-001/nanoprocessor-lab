@@ -15,6 +15,8 @@ INSTRUCTION_MACHINE_CODE = [
 
 MAPPING = dict(zip(INSTRUCTION_SET, INSTRUCTION_MACHINE_CODE))
 
+ROM_SIZE = 32
+
 
 def hex_to_bin(hex_value: str, bit_length: int) -> str:
     '''Convert hex number to binary padded with zeros according 
@@ -97,7 +99,8 @@ if __name__ == "__main__":
         machine_codes.append(MAPPING[operator] + operand_code)
 
     # Write blank instructions
-    machine_codes.extend(["0" * 16 for i in range(16 - len(machine_codes))])
+    machine_codes.extend(
+        ["0" * 16 for i in range(ROM_SIZE - len(machine_codes))])
 
     # Write machine code to file
     with open(output_file_name, "w") as f:
