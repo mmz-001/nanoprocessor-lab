@@ -33,6 +33,7 @@ def valid_register(reg: str):
 
 
 if __name__ == "__main__":
+    sys.argv = [0, "instructions_main.asm"]
     if len(sys.argv) == 1:
         print("Pass input file name as an argument")
         quit()
@@ -58,16 +59,16 @@ if __name__ == "__main__":
     instructions = [x.split() for x in instructions]
 
     # Create instruction map
-    instruction_map = dict()
+    instruction_map = []
     for instruction in instructions:
         if instruction[0] not in INSTRUCTION_SET:
             raise Exception(f"{instruction[0]} is not a valid instruction.")
 
-        instruction_map[instruction[0]] = tuple(instruction[1:])
+        instruction_map.append((instruction[0], tuple(instruction[1:])))
 
     # Parsing Operands
     machine_codes = []
-    for operator, operands in instruction_map.items():
+    for operator, operands in instruction_map:
         operand_code = ""
         for operand in operands:
             # Register
@@ -94,6 +95,9 @@ if __name__ == "__main__":
             operand_code += "0" * 12
 
         machine_codes.append(MAPPING[operator] + operand_code)
+
+    # Write blank instructions
+    machine_codes.extend(["0" * 16 for i in range(16 - len(machine_codes))])
 
     # Write machine code to file
     with open(output_file_name, "w") as f:
