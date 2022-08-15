@@ -74,6 +74,7 @@ begin
       RB_Sel <= "000";
       AU_Sel <= "000";
       Load_Sel <= "01";
+      
     elsif Ins = "0101" then
      -- MUL, RA, RB 
       RA_Sel <= I(11 downto 9);
@@ -81,6 +82,7 @@ begin
       R_En <= I(11 downto 9);
       Load_Sel <= "01"; -- AU output 
       AU_Sel <= "100";
+
     elsif Ins = "0110" then 
      -- DIV, RA, RB
       RA_Sel <= I(11 downto 9);
@@ -88,6 +90,7 @@ begin
       R_En <= I(11 downto 9);
       Load_Sel <= "01"; -- AU output 
       AU_Sel <= "010";
+
     elsif Ins = "0111" then
      -- MOD, RA, RB 
       RA_Sel <= I(11 downto 9);
@@ -95,6 +98,7 @@ begin
       R_En <= I(11 downto 9);
       Load_Sel <= "01"; -- AU output 
       AU_Sel <= "011";
+
     elsif Ins = "1000" then 
      -- IN, R, P
       R_En <= I(11 downto 9);
@@ -103,6 +107,7 @@ begin
       else
         Load_Sel <= "11"; 
       end if;
+
     elsif Ins = "1001" then
      -- CMP, RA, RB 
       RA_Sel <= I(11 downto 9);
@@ -110,6 +115,7 @@ begin
       R_En <= I(11 downto 9);
       Load_Sel <= "01"; -- AU output 
       AU_Sel <= "111";
+
     elsif Ins = "1010" then 
      -- HALT 
       Jmp_Flag <= '1';
@@ -122,6 +128,7 @@ begin
       else 
         Jmp_Flag <= '1';
       end if;
+
     elsif Ins = "1100" then 
      -- JS, d
       if Negative = '1' then
@@ -137,12 +144,14 @@ begin
       else 
         Jmp_Flag <= '1';
       end if;
+
     elsif Ins = "1110" then 
      -- INC, R
      RA_Sel <= I(11 downto 9);
      R_En <= I(11 downto 9);
      Load_Sel <= "01"; 
      AU_Sel <= "101";
+
     elsif Ins = "1111" then
      -- DEC, R 
      RA_Sel <= I(11 downto 9);
