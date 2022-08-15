@@ -81,8 +81,10 @@ end component;
 component PC_3
   Port (Res : in STD_LOGIC;
         Clk : in STD_LOGIC;
-        D : in STD_LOGIC_VECTOR (2 downto 0);
-        Q : out STD_LOGIC_VECTOR (2 downto 0)
+        Addr_Jump : in STD_LOGIC_VECTOR (4 downto 0);
+        Q_last : in STD_LOGIC_VECTOR(4 downto 0);
+        Jump_Flag : in STD_LOGIC; 
+        Q : out STD_LOGIC_VECTOR (4 downto 0)
    );
 end component;
 
