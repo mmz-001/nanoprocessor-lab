@@ -26,6 +26,7 @@ begin
 
   process (I, Ins, R_In, Zero, Overflow, Negative, Interrupt) 
   begin
+
     -- Initialize
     R_En <= "000";
     RA_Sel <= "000";
@@ -126,7 +127,7 @@ begin
       if Overflow = '1' then
         Jmp_Flag <= '1';
       else 
-        Jmp_Flag <= '1';
+        Jmp_Flag <= '0';
       end if;
 
     elsif Ins = "1100" then 
@@ -134,7 +135,7 @@ begin
       if Negative = '1' then
         Jmp_Flag <= '1';
       else 
-        Jmp_Flag <= '1';
+        Jmp_Flag <= '0';
       end if;
 
     elsif Ins = "1101" then
@@ -142,7 +143,7 @@ begin
       if Interrupt = '1' then
         Jmp_Flag <= '1';
       else 
-        Jmp_Flag <= '1';
+        Jmp_Flag <= '0';
       end if;
 
     elsif Ins = "1110" then 
@@ -158,6 +159,7 @@ begin
      R_En <= I(11 downto 9);
      Load_Sel <= "01"; 
      AU_Sel <= "110";
+     
     end if;
   end process;
 
