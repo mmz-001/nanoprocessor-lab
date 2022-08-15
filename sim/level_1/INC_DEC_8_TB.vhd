@@ -1,81 +1,81 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
-entity INC_DEC_8_TB is
+entity Inc_Dec_8_TB is
 
-end INC_DEC_8_TB;
+end Inc_Dec_8_TB;
 
-architecture Behavioral of INC_DEC_8_TB is
-component INC_DEC_8
-    Port ( INC_Sel : in STD_LOGIC;
-           DEC_Sel : in STD_LOGIC;
+architecture Behavioral of Inc_Dec_8_TB is
+component Inc_Dec_8
+    Port ( Inc_Sel : in STD_LOGIC;
+           Dec_Sel : in STD_LOGIC;
            A : in STD_LOGIC_VECTOR (7 downto 0);
-           INC_Out : out STD_LOGIC_VECTOR (7 downto 0);
-           DEC_Out : out STD_LOGIC_VECTOR (7 downto 0);
-           FLAG : out STD_LOGIC_VECTOR (3 downto 0));
+           Inc_Out : out STD_LOGIC_VECTOR (7 downto 0);
+           Dec_Out : out STD_LOGIC_VECTOR (7 downto 0);
+           Flag : out STD_LOGIC_VECTOR (3 downto 0));
 end component;
 
-signal a,inc_out,dec_out : STD_LOGIC_VECTOR (7 downto 0);
-signal inc,dec : STD_LOGIC;
+signal a,Inc_out,Dec_out : STD_LOGIC_VECTOR (7 downto 0);
+signal Inc,Dec : STD_LOGIC;
 signal flg : STD_LOGIC_VECTOR (3 downto 0);
 
 begin
-UUT:INC_DEC_8
+UUT:Inc_Dec_8
 port map(
-    INC_Sel => inc,
-    DEC_Sel => dec,
+    Inc_Sel => Inc,
+    Dec_Sel => Dec,
     A => a,
-    INC_Out => inc_out,
-    DEC_Out => dec_out,
-    FLAG => flg);
+    Inc_Out => Inc_out,
+    Dec_Out => Dec_out,
+    Flag => flg);
 
 process
 begin
 
-inc <= '0';
-dec <= '0';
-a <= "00000001";
-wait for 100 ns;
+    Inc <= '0';
+    Dec <= '0';
+    a <= "00000001";
+    wait for 100 ns;
 
-inc <= '1';
-wait for 100 ns;
-inc <= '0';
+    Inc <= '1';
+    wait for 100 ns;
+    Inc <= '0';
 
-dec <= '1';
-wait for 100 ns;
-dec <= '0';
+    Dec <= '1';
+    wait for 100 ns;
+    Dec <= '0';
 
-a <= "00000100";
+    a <= "00000100";
 
-inc <= '1';
-wait for 100 ns;
-inc <= '0';
+    Inc <= '1';
+    wait for 100 ns;
+    Inc <= '0';
 
-dec <= '1';
-wait for 100 ns;
-dec <= '0';
+    Dec <= '1';
+    wait for 100 ns;
+    Dec <= '0';
 
-a <= "11110000";
+    a <= "11110000";
 
-inc <= '1';
-wait for 100 ns;
-inc <= '0';
+    Inc <= '1';
+    wait for 100 ns;
+    Inc <= '0';
 
-dec <= '1';
-wait for 100 ns;
-dec <= '0';
+    Dec <= '1';
+    wait for 100 ns;
+    Dec <= '0';
 
-a <= "01111111"; -- testing overflow flag (overflow from positive limit)
+    a <= "01111111"; -- testing overflow Flag (overflow from positive limit)
 
-inc <= '1';
-wait for 100 ns;
-inc <= '0';
+    Inc <= '1';
+    wait for 100 ns;
+    Inc <= '0';
 
-dec <= '1';
-wait for 100 ns;
-dec <= '0';
-wait;
+    Dec <= '1';
+    wait for 100 ns;
+    Dec <= '0';
+    wait;
 
-end process;
+    end process;
 
 end Behavioral;
