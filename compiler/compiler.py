@@ -35,7 +35,6 @@ def valid_register(reg: str):
 
 
 if __name__ == "__main__":
-    sys.argv = [0, "instructions_main.asm"]
     if len(sys.argv) == 1:
         print("Pass input file name as an argument")
         quit()
