@@ -12,7 +12,8 @@ entity Ins_Decoder_16 is
     AU_Sel: out STD_LOGIC_VECTOR (2 downto 0);
     Load_Sel : out STD_LOGIC_VECTOR ( 1 downto 0);
     Jmp_Addr : out STD_LOGIC_VECTOR (4 downto 0);
-    Im_Val : out STD_LOGIC_VECTOR (7 downto 0)
+    Im_Val : out STD_LOGIC_VECTOR (7 downto 0);
+    M : in STD_LOGIC_VECTOR (4 downto 0)
   );
 end Ins_Decoder_16;
 
@@ -25,7 +26,6 @@ begin
 
   process (I, Ins, R_In, Zero, Overflow, Negative, Interrupt) 
   begin
-
     -- Initialize
     R_En <= "000";
     RA_Sel <= "000";
@@ -69,25 +69,74 @@ begin
      
     elsif Ins = "0100" then 
      -- MOV, RA, RB
+      R_En <= I(11 downto 9);
+      RA_Sel <= I(11 downto 9);
+      RB_Sel <= "000";
+      AU_Sel <= "000";
+      Load_Sel <= "01";
     elsif Ins = "0101" then
      -- MUL, RA, RB 
+      RA_Sel <= I(11 downto 9);
+      RB_Sel <= I(8 downto 6);
+      R_En <= I(11 downto 9);
+      Load_Sel <= "01"; -- AU output 
+      AU_Sel <= "100";
     elsif Ins = "0110" then 
      -- DIV, RA, RB
+      RA_Sel <= I(11 downto 9);
+      RB_Sel <= I(8 downto 6);
+      R_En <= I(11 downto 9);
+      Load_Sel <= "01"; -- AU output 
+      AU_Sel <= "010";
     elsif Ins = "0111" then
      -- MOD, RA, RB 
+      RA_Sel <= I(11 downto 9);
+      RB_Sel <= I(8 downto 6);
+      R_En <= I(11 downto 9);
+      Load_Sel <= "01"; -- AU output 
+      AU_Sel <= "011";
     elsif Ins = "1000" then 
      -- IN, R, P
+      R_En <= I(11 downto 9);
+      if I(15) = '0' then
+        Load_Sel <= "10"; 
+      else
+        Load_Sel <= "11"; 
+      end if;
     elsif Ins = "1001" then
      -- CMP, RA, RB 
+      RA_Sel <= I(11 downto 9);
+      RB_Sel <= I(8 downto 6);
+      R_En <= I(11 downto 9);
+      Load_Sel <= "01"; -- AU output 
+      AU_Sel <= "111";
     elsif Ins = "1010" then 
      -- HALT 
+      Jmp_Flag <= '1';
+      Jmp_Addr <= M;
+      
     elsif Ins = "1011" then 
      -- JO, d
+      if Overflow = '1' then
+        Jmp_Flag <= '1';
+      else 
+        Jmp_Flag <= '1';
+      end if;
     elsif Ins = "1100" then 
      -- JS, d
+      if Negative = '1' then
+        Jmp_Flag <= '1';
+      else 
+        Jmp_Flag <= '1';
+      end if;
+
     elsif Ins = "1101" then
-     -- JINT, d
-     
+      -- JINT, d
+      if Interrupt = '1' then
+        Jmp_Flag <= '1';
+      else 
+        Jmp_Flag <= '1';
+      end if;
     elsif Ins = "1110" then 
      -- INC, R
      RA_Sel <= I(11 downto 9);

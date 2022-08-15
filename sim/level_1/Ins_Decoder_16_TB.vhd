@@ -16,7 +16,8 @@ component Ins_Decoder_16
     AU_Sel: out STD_LOGIC_VECTOR (2 downto 0);
     Load_Sel : out STD_LOGIC_VECTOR ( 1 downto 0);
     Jmp_Addr : out STD_LOGIC_VECTOR (4 downto 0);
-    Im_Val : out STD_LOGIC_VECTOR (7 downto 0));
+    Im_Val : out STD_LOGIC_VECTOR (7 downto 0);    
+    M : in STD_LOGIC_VECTOR (4 downto 0));
 end component;
 
 Signal I : STD_LOGIC_VECTOR (15 downto 0); -- 16 bit instruction
@@ -26,7 +27,7 @@ Signal R_En, RA_Sel, RB_Sel : STD_LOGIC_VECTOR (2 downto 0);
 Signal Jmp_Flag : STD_LOGIC;
 Signal AU_Sel: STD_LOGIC_VECTOR (2 downto 0);
 Signal Load_Sel : STD_LOGIC_VECTOR ( 1 downto 0);
-Signal Jmp_Addr : STD_LOGIC_VECTOR (4 downto 0);
+Signal Jmp_Addr, M : STD_LOGIC_VECTOR (4 downto 0);
 Signal Im_Val : STD_LOGIC_VECTOR (7 downto 0);
 
 begin
@@ -45,7 +46,8 @@ port map(
     AU_Sel => AU_Sel,
     Load_Sel => Load_Sel,
     Jmp_Addr => Jmp_Addr,
-    Im_Val => Im_Val);
+    Im_Val => Im_Val,
+    M => M);
 
 process
 begin
