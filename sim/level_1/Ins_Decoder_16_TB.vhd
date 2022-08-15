@@ -49,9 +49,25 @@ port map(
 
 process
 begin
+
+-- setting flag inputs to zero 
+Zero <= '0';
+Overflow <= '0';
+Negative <= '0';
+Interrupt <= '0';
+R_In <= "00000000";
+
 -- MOVI, register 8 (111), value = 10 (00001010)
 I <= "0010111000001010";
-wait for 100 ns;
-end process;
+wait for 50 ns;
 
+-- ADD, reg 2 (010), reg 3 (011)
+I <= "0000010011000000";
+wait for 50 ns;
+
+-- NEG, reg 6 (101) 
+I <= "0001101000000000";
+wait for 50 ns;
+wait;
+end process;
 end Behavioral;

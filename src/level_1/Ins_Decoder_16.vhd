@@ -38,8 +38,20 @@ begin
 
     if Ins = "0000" then
      -- ADD, RA, RB
+     RA_Sel <= I(11 downto 9);
+     RB_Sel <= I(8 downto 6);
+     R_En <= I(11 downto 9);
+     Load_Sel <= "01"; -- AU output 
+     AU_Sel <= "000";
+     
     elsif Ins = "0001" then
      -- NEG, R
+     RA_Sel <= "000"; -- register 0 hardcoded to zero 
+     RB_Sel <= I(11 downto 9);
+     R_En <= I(11 downto 9);
+     Load_Sel <= "01";
+     AU_Sel <="001";
+     
     elsif Ins = "0010" then
      -- MOVI, R_In, d
      R_En <= I(11 downto 9);
