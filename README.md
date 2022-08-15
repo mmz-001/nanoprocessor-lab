@@ -71,7 +71,7 @@ The syntax for the assembly files is quite simple. The available instructions ar
   - [x] Decoders and encoder
   - [x] Program Counter
   - [x] 7-Segment Processing Unit
-  - [x] 8-Bit Add/Sub Unit
+  - [ ] 8-Bit Add/Sub Unit
   - [ ] 8-Bit Div/Mod Unit
   - [x] 8-Bit Mul Unit
   - [x] 8-Bit Inc/Dec Unit
