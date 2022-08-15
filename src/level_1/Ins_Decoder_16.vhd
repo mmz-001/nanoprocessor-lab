@@ -33,7 +33,7 @@ begin
     Jmp_Flag <= '0';
     AU_Sel <= "000";
     Load_Sel <= "00";
-    Jmp_Addr <= "00000";
+    Jmp_Addr <= I(4 downto 0);
     Im_Val <= "00000000";
 
     if Ins = "0000" then
@@ -60,6 +60,13 @@ begin
      
     elsif Ins = "0011" then
      -- JZR, R, d
+     RA_Sel <= I(11 downto 9);
+     if R_In = "00000000" then
+        Jmp_Flag <= '1';
+     else
+        Jmp_Flag <= '0'; 
+     end if;
+     
     elsif Ins = "0100" then 
      -- MOV, RA, RB
     elsif Ins = "0101" then
