@@ -124,12 +124,32 @@ begin
         );
     
     MUL_0 : MUL
-        Port ( A : in STD_LOGIC_VECTOR (7 downto 0);
-        B : in STD_LOGIC_VECTOR (7 downto 0);
-        Mul_Sel : in STD_LOGIC;
-        Q : out STD_LOGIC_VECTOR (7 downto 0);
-        FLAG : out STD_LOGIC_VECTOR (3 downto 0));
+        Port Map (
+        A => A,
+        B => B,
+        Mul_Sel => Mul_Sel,
+        Q => Mul_Out,
+        FLAG => Flags_3
+    );
+
+    INC_DEC_8_0 :  INC_DEC_8
+        Port Map ( 
+        Inc_Sel => Inc_Sel,
+        Dec_Sel => Dec_Sel,
+        A => A,
+        Inc_Out => Inc_Out,
+        Dec_Out => Dec_Out,
+        Flag => Flags_4
+    );
     
+    Cmp_8_0 : Cmp_8
+        Port Map (
+        A => A,
+        B => B,
+        Cmp_Sel => Cmp_Sel,
+        Q => Cmp_Out,
+        Flags => Flags_5
+    );
 
 
     -- MUX_8_8_0 : MUX_8_8
