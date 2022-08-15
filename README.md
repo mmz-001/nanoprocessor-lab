@@ -92,3 +92,11 @@ The syntax for the assembly files is quite simple. The available instructions ar
   - [ ] DEC
 - [x] Create a compiler for the new instructions
 - [ ] Create a non-trivial program to illustrate the additional features (e.g, a calculator for with ADD, SUB, MUL, and DIV operations that can take input from the BASYS3 board)
+- [ ] Reduce LUT and FF count by using method in Slow Clock to other components.
+  - [ ] Add Sub unit - Convert to behavioral
+
+- [ ] Test the optimized version on the board
+- [ ] Write the report of the optimized version
+- [ ] Finish the feature version
+- [ ] Write the program for the feature version (Hailstone sequence or Calculator[Input])
+- [ ] Write the report for the feature version  
