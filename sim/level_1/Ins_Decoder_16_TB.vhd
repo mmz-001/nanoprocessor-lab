@@ -69,9 +69,16 @@ wait for 50 ns;
 I <= "0001101000000000";
 wait for 50 ns;
 
+-- JRZ, reg 5 (100), addr (01010)
+I <= "0011100000001010";
+wait for 50 ns;
+R_In <= "00000001"; -- testing jrz when R_in != 0
+wait for 50 ns;
+
 -- DEC, reg 5
 I <= "1111101000000000";  
 wait for 50 ns;
 
+wait;
 end process;
 end Behavioral;
