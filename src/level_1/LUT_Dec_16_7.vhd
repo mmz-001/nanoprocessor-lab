@@ -2,12 +2,12 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
-entity LUT_16_7 is
+entity LUT_Dec_16_7 is
     Port ( I : in STD_LOGIC_VECTOR (3 downto 0);
            D : out STD_LOGIC_VECTOR (6 downto 0));
-end LUT_16_7;
+end LUT_Dec_16_7;
 
-architecture Behavioral of LUT_16_7 is
+architecture Behavioral of LUT_Dec_16_7 is
     type rom_type is array (0 to 15) of STD_LOGIC_VECTOR(6 downto 0);
         signal sevenSegment_ROM : rom_type :=(
             "1000000",-- 0
@@ -20,11 +20,11 @@ architecture Behavioral of LUT_16_7 is
             "1111000",-- 7
             "0000000",-- 8
             "0010000",-- 9
-            "0001000",-- a
-            "0000011",-- b
-            "1000110",-- c
-            "0100001",-- d
-            "0000110",-- e
+            "1111111",-- (off)
+            "0111111",-- - (Minus)
+            "0000110",-- E
+            "0101111",-- r
+            "1100011",-- v
             "0001110" -- f
         );  
 begin

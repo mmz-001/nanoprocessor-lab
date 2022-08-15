@@ -10,6 +10,12 @@ A nanoprocessor capable of executing a set of simple instructions.
 - 32 instructions can be stored in ROM
 - Flags for overflow, zero, negative, and interrupt
 
+## Schematic
+
+![Schematic](schematic/schematic.png)
+
+</br>
+
 ## Instruction set
 
 <!-- Disable word wrap to display table correctly-->
@@ -59,20 +65,20 @@ The syntax for the assembly files is quite simple. The available instructions ar
 
 - [x] Display output in 7-segment display
 - [ ] Make required components
-  - [ ] 8-bit registers
-  - [ ] Program ROM with 32 8-bit registers
-  - [ ] MUXes
-  - [ ] Decoders and encoder
-  - [ ] Program Counter
-  - [ ] 7-Segment Processing Unit
+  - [x] 8-bit registers
+  - [x] Program ROM with 32 8-bit registers
+  - [x] MUXes
+  - [x] Decoders and encoder
+  - [x] Program Counter
+  - [x] 7-Segment Processing Unit
   - [ ] 8-Bit Add/Sub Unit
   - [ ] 8-Bit Div/Mod Unit
-  - [ ] 8-Bit Mul Unit
-  - [ ] 8-Bit Inc/Dec Unit
-  - [ ] Register bank
+  - [x] 8-Bit Mul Unit
+  - [x] 8-Bit Inc/Dec Unit
+  - [x] Register bank
   - [ ] Instruction Decoder
-  - [ ] Hex-To-Decimal Converter
-  - [ ] 7-Segment Graphics Adapter
+  - [x] Hex-To-Decimal Converter
+  - [x] 7-Segment Graphics Adapter
 - [ ] Add instructions (16 16-bit instructions, Check instruction set below for additional details)
   - [ ] MOVI
   - [ ] ADD
