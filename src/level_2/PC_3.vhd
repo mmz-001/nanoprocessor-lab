@@ -4,8 +4,8 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity PC_3 is
   Port (Res : in STD_LOGIC;
         Clk : in STD_LOGIC;
-        D : in STD_LOGIC_VECTOR (2 downto 0);
-        Q : out STD_LOGIC_VECTOR (2 downto 0)
+        D : in STD_LOGIC_VECTOR (4 downto 0);
+        Q : out STD_LOGIC_VECTOR (4 downto 0)
    );
   end PC_3;
 
@@ -41,6 +41,22 @@ begin
       Res => Res,
       Clk => Clk,
       Q => Q(2)
+    );
+
+  DFF_4_1 : DFF_4
+    port map (
+      D => D(3),
+      Res => Res,
+      Clk => Clk,
+      Q => Q(3)
+    );
+
+  DFF_4_2 : DFF_4
+    port map (
+      D => D(4),
+      Res => Res,
+      Clk => Clk,
+      Q => Q(4)
     );
 
 end Behavioral;
