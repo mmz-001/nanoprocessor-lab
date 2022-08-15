@@ -68,6 +68,10 @@ wait for 50 ns;
 -- NEG, reg 6 (101) 
 I <= "0001101000000000";
 wait for 50 ns;
-wait;
+
+-- DEC, reg 5
+I <= "1111101000000000";  
+wait for 50 ns;
+
 end process;
 end Behavioral;

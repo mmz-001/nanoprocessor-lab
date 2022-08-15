@@ -80,10 +80,19 @@ begin
      -- JS, d
     elsif Ins = "1101" then
      -- JINT, d
+     
     elsif Ins = "1110" then 
      -- INC, R
+     RA_Sel <= I(11 downto 9);
+     R_En <= I(11 downto 9);
+     Load_Sel <= "01"; 
+     AU_Sel <= "101";
     elsif Ins = "1111" then
      -- DEC, R 
+     RA_Sel <= I(11 downto 9);
+     R_En <= I(11 downto 9);
+     Load_Sel <= "01"; 
+     AU_Sel <= "110";
     end if;
   end process;
 
