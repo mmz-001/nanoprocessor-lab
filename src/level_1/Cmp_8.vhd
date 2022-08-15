@@ -16,10 +16,14 @@ architecture Behavioral of Cmp_8 is
 begin
     process (A, B, Cmp_Sel) begin
         Q <= "00000000";
-        if (A = B) then
-            Flags <= "1000";
-        elsif (A < B) then
-            Flags <= "0010";
+        if (Cmp_Sel = '1') then
+            if (A = B) then
+                Flags <= "1000";
+            elsif (A < B) then
+                Flags <= "0010";
+            else
+                Flags <= "0000";
+            end if;
         else
             Flags <= "0000";
         end if;
