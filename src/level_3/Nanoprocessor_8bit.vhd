@@ -118,12 +118,13 @@ end component;
 signal Ins_Bus : STD_LOGIC_VECTOR (15 downto 0);
 signal S_Clk,JMP_Flag : STD_LOGIC;
 signal M,Jmp_Addr : STD_LOGIC_VECTOR (4 downto 0);
-signal R_In,Im_val,Load_Sel_Mux_Out,AU_Out,SW_In,Push_In : STD_LOGIC_VECTOR (7 downto 0);
+signal Im_val,Load_Sel_Mux_Out,AU_Out,SW_In,Push_In : STD_LOGIC_VECTOR (7 downto 0);
 signal Zero,Overflow,Negative,Interrupt : STD_LOGIC;
 signal R_En,RA_Sel,RB_Sel,ALU_Sel : STD_LOGIC_VECTOR (2 downto 0);
 signal Load_Sel : STD_LOGIC_VECTOR (1 downto 0);
 signal FLAGS : STD_LOGIC_VECTOR (3 downto 0);
 signal R0,R1,R2,R3,R4,R5,R6,R7 : STD_LOGIC_VECTOR (7 downto 0);
+signal MUX_A_OUT,MUX_B_OUT : STD_LOGIC_VECTOR (7 downto 0);
            
 begin
 
@@ -131,7 +132,7 @@ Ins_Decoder_0 : Ins_Decoder_16
 port map(
     I => Ins_Bus,
     M => M,          
-    R_In => R_In,
+    R_In => MUX_A_Out,
     Zero => zero, 
     Overflow => Overflow, 
     Negative => Negative, 
@@ -186,16 +187,46 @@ port map(
     Q => SW_In);
 
 MUX_8_A : MUX_8_8
-port map();
+port map(
+    A0 => R0,
+    A1 => R1,
+    A2 => R2,
+    A3 => R3,
+    A4 => R4,
+    A5 => R5,
+    A6 => R6,
+    A7 => R7,
+    Q => MUX_A_OUT,
+    Select_In => RA_Sel );
 
 MUX_8_B : MUX_8_8
-port map();
+port map(
+    A0 => R0,
+    A1 => R1,
+    A2 => R2,
+    A3 => R3,
+    A4 => R4,
+    A5 => R5,
+    A6 => R6,
+    A7 => R7,
+    Q => MUX_B_OUT,
+    Select_In => RB_Sel );
 
 ALU : ALU_8
-port map();
+port map(
+    A => MUX_A_Out,
+    B => MUX_B_out,
+    ALU_Sel => ALU_Sel,
+    ALU_Out => AU_out,
+    Flags => FLAGS);
 
 SPU : SPU_8
-port map();
+port map(
+    I => R7,
+    Flags => FLAGS,
+    Clk => Clk,
+    Seven_Seg_Out_L => Seven_Seg_Out,
+    Anode_Out_L => Anode_Out);
 
 Reg_Bank : Reg_8_8
 port map(
