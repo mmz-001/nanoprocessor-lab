@@ -8,7 +8,7 @@ entity Nanoprocessor_8bit is
            Push_Buttons : in STD_LOGIC_VECTOR (7 downto 0);
            R7_LED_Out : out STD_LOGIC_VECTOR (7 downto 0);
            Anode_Out : out STD_LOGIC_VECTOR (3 downto 0);
-           Seven_Seg_Out : out STD_LOGIC_VECTOR (7 downto 0);
+           Seven_Seg_Out : out STD_LOGIC_VECTOR (6 downto 0);
            Flag_LED_Out : out STD_LOGIC_VECTOR (3 downto 0));
 end Nanoprocessor_8bit;
 
@@ -118,7 +118,7 @@ end component;
 signal Ins_Bus : STD_LOGIC_VECTOR (15 downto 0);
 signal S_Clk,JMP_Flag : STD_LOGIC;
 signal M,Jmp_Addr : STD_LOGIC_VECTOR (4 downto 0);
-signal Im_val,Load_Sel_Mux_Out,AU_Out,SW_In,Push_In : STD_LOGIC_VECTOR (7 downto 0);
+signal Im_val,Load_Sel_Mux_Out,AU_Out,SW_In : STD_LOGIC_VECTOR (7 downto 0);
 signal Zero,Overflow,Negative,Interrupt : STD_LOGIC;
 signal R_En,RA_Sel,RB_Sel,ALU_Sel : STD_LOGIC_VECTOR (2 downto 0);
 signal Load_Sel : STD_LOGIC_VECTOR (1 downto 0);
@@ -159,7 +159,7 @@ port map(
     A0 => Im_val,
     A1 => AU_Out,
     A2 => SW_In,
-    A3 => Push_In,
+    A3 => Push_Buttons,
     Select_In => Load_Sel,
     Q => Load_Sel_Mux_Out);
 
@@ -242,5 +242,8 @@ port map(
     R_5 => R5,
     R_6 => R6,
     R_7 => R7);
+
+Flag_LED_Out <= FLAGS;
+R7_LED_Out <= R7;
 
 end Behavioral;

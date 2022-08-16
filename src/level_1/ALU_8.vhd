@@ -152,20 +152,25 @@ begin
     );
 
 
-    -- MUX_8_8_0 : MUX_8_8
-    -- Port map (
-    --     A0
-    --     A1
-    --     A2
-    --     A3
-    --     A4
-    --     A5
-    --     A6
-    --     A7
-    --     Q
-    --     Select_In
-    -- );
-       
+    MUX_8_8_0 : MUX_8_8
+    Port map (
+        A0
+        A1
+        A2
+        A3
+        A4
+        A5
+        A6
+        A7
+        Q
+        Select_In
+    );
+    
+
+Flags(0) <= Flags_1(0) or Flags_2(0) or Flags_3(0) or Flags_4(0) or Flags_5(0);
+Flags(1) <= Flags_1(1) or Flags_2(1) or Flags_3(1) or Flags_4(1) or Flags_5(1);
+Flags(2) <= Flags_1(2) or Flags_2(2) or Flags_3(2) or Flags_4(2) or Flags_5(2);
+Flags(3) <= Flags_1(3) or Flags_2(3) or Flags_3(3) or Flags_4(3) or Flags_5(3);
 
 
 end Behavioral;
