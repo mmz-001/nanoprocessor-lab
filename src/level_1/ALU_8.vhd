@@ -154,17 +154,16 @@ begin
 
     MUX_8_8_0 : MUX_8_8
     Port map (
-        A0
-        A1
-        A2
-        A3
-        A4
-        A5
-        A6
-        A7
-        Q
-        Select_In
-    );
+        A0 => Add_out,
+        A1 => Sub_out,
+        A2 => Div_out,
+        A3 => Mod_out,
+        A4 => MUL_out,
+        A5 => Inc_out,
+        A6 => Dec_out,
+        A7 => Cmp_out,
+        Q => ALU_out,
+        Select_In => ALU_Sel);
     
 
 Flags(0) <= Flags_1(0) or Flags_2(0) or Flags_3(0) or Flags_4(0) or Flags_5(0);
