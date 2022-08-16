@@ -11,6 +11,15 @@ end RCA_3;
 
 architecture Behavioral of RCA_3 is
 
+component FA
+    Port(
+        A: in STD_LOGIC;
+        B: in STD_LOGIC;
+        Carry_In : in STD_LOGIC;
+        Sum : out STD_LOGIC;
+        Carry_Out : out STD_LOGIC);
+end component;
+
 signal D_out : STD_LOGIC_VECTOR (2 downto 0);
 
 begin
