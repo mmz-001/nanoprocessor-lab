@@ -114,29 +114,76 @@ component Reg_8_8
         R_6 : out STD_LOGIC_VECTOR (7 downto 0);
         R_7 : out STD_LOGIC_VECTOR (7 downto 0));
 end component;    
+
+signal Ins_Bus : STD_LOGIC_VECTOR (15 downto 0);
+signal S_Clk,JMP_Flag : STD_LOGIC;
+signal M,Jmp_Addr : STD_LOGIC_VECTOR (4 downto 0);
+signal R_In,Im_val,Load_Sel_Mux_Out,AU_Out,SW_In,Push_In : STD_LOGIC_VECTOR (7 downto 0);
+signal Zero,Overflow,Negative,Interrupt : STD_LOGIC;
+signal R_En,RA_Sel,RB_Sel,ALU_Sel : STD_LOGIC_VECTOR (2 downto 0);
+signal Load_Sel : STD_LOGIC_VECTOR (1 downto 0);
+signal FLAGS : STD_LOGIC_VECTOR (3 downto 0);
+signal R0,R1,R2,R3,R4,R5,R6,R7 : STD_LOGIC_VECTOR (7 downto 0);
            
 begin
 
 Ins_Decoder_0 : Ins_Decoder_16
-port map();
+port map(
+    I => Ins_Bus,
+    M => M,          
+    R_In => R_In,
+    Zero => zero, 
+    Overflow => Overflow, 
+    Negative => Negative, 
+    Interrupt => interrupt,
+    R_En => R_En, 
+    RA_Sel => RA_Sel, 
+    RB_Sel => RB_Sel,
+    Jmp_Flag => Jmp_Flag,
+    AU_Sel => ALU_Sel,
+    Load_Sel => Load_Sel,
+    Jmp_Addr => Jmp_Addr,
+    Im_Val => Im_val);
 
 Decoder_1_To_4_0 : Decoder_1_To_4
-port map();
+port map(
+    A => FLAGS,
+    O => Overflow,
+    N => Negative,
+    Z => Zero,
+    I => Interrupt);
 
 MUX_4_8_0 : MUX_4_8
-port map();
+port map(
+    A0 => Im_val,
+    A1 => AU_Out,
+    A2 => SW_In,
+    A3 => Push_In,
+    Select_In => Load_Sel,
+    Q => Load_Sel_Mux_Out);
 
 Program_Rom : LUT_32_16
-port map();
+port map(
+    I => Ins_Bus,
+    D => M);
 
 Program_Counter : PC_5
-port map();
+port map(
+    Res => Res,
+    Clk =>S_Clk,
+    Addr_Jump => JMP_Addr,
+    Jump_Flag => JMP_Flag,
+    M => M);
 
 Slow_Clock : Slow_Clk
-port map();
+port map(
+    Clk_in => Clk,
+    Clk_out => S_Clk);
 
 Encoder_10_To_8_0 : Encoder_10_To_8
-port map();
+port map(
+    A => Switches,
+    Q => SW_In);
 
 MUX_8_A : MUX_8_8
 port map();
@@ -151,6 +198,18 @@ SPU : SPU_8
 port map();
 
 Reg_Bank : Reg_8_8
-port map();
+port map(
+    Res => Res,
+    R_En => R_En,
+    Clk => S_Clk,
+    R_In => Load_Sel_Mux_Out,
+    R_0 => R0,
+    R_1 => R1,
+    R_2 => R2,
+    R_3 => R3,
+    R_4 => R4,
+    R_5 => R5,
+    R_6 => R6,
+    R_7 => R7);
 
 end Behavioral;
