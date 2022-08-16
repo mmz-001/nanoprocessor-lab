@@ -24,7 +24,7 @@ Signal Ins : STD_LOGIC_VECTOR (3 downto 0);
 begin
   Ins <= I(15 downto 12); -- 1st 4 bits have the type of instruction 
 
-  process (I, Ins, R_In, Zero, Overflow, Negative, Interrupt) 
+  process (I, Ins, R_In, Zero, Overflow, Negative, Interrupt,M) 
   begin
 
     -- Initialize
