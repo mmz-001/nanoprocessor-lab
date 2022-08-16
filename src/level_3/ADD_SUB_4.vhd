@@ -20,13 +20,13 @@ attribute use_dsp of A_signed, B_signed, Sum_out : signal is "yes";
 
 begin
   
-  process(A_signed,B_signed,Neg,Sum_out,Neg_sig) begin
+  process(A_signed,B_signed,Neg,Sum_out,Neg_sig,A,B) begin
     A_signed <= to_integer(signed(A));
     B_signed <= to_integer(signed(B));
 
     Neg_sig <= to_integer(unsigned'('0' & Neg));
 
-    Sum_out <= A_signed + (Neg_sig*2 -1) * B_signed;
+    Sum_out <= A_signed + (Neg_sig*(-2) +1) * B_signed;
     
     if(Sum_out=0) then
       Zero <= '1';
