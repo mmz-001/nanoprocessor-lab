@@ -98,6 +98,22 @@ component SPU_8
            Seven_Seg_Out_L : out STD_LOGIC_VECTOR (6 downto 0);
            Anode_Out_L : out STD_LOGIC_VECTOR (3 downto 0));
 end component;
+
+component Reg_8_8
+    Port (
+        Res : in STD_LOGIC;
+        R_En : in STD_LOGIC_VECTOR (2 downto 0); -- regeister select
+        Clk : in STD_LOGIC;
+        R_In : in STD_LOGIC_VECTOR (7 downto 0); -- data in
+        R_0 : out STD_LOGIC_VECTOR (7 downto 0); -- 8 bit regsiters
+        R_1 : out STD_LOGIC_VECTOR (7 downto 0);
+        R_2 : out STD_LOGIC_VECTOR (7 downto 0);
+        R_3 : out STD_LOGIC_VECTOR (7 downto 0);
+        R_4 : out STD_LOGIC_VECTOR (7 downto 0);
+        R_5 : out STD_LOGIC_VECTOR (7 downto 0);
+        R_6 : out STD_LOGIC_VECTOR (7 downto 0);
+        R_7 : out STD_LOGIC_VECTOR (7 downto 0));
+end component;    
            
 begin
 
@@ -132,6 +148,9 @@ ALU : ALU_8
 port map();
 
 SPU : SPU_8
+port map();
+
+Reg_Bank : Reg_8_8
 port map();
 
 end Behavioral;
