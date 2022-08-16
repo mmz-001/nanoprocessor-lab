@@ -11,7 +11,7 @@ architecture Behavioral of LUT_32_16 is
     type rom_type is array (0 to 31) of std_logic_vector(15 downto 0);
         signal Instruction_ROM : rom_type :=(
            "0010111000000000",-- MOVI R7, 0000
-           "0010001000000011",-- MOVI R1, 0011
+           "0010001000001001",-- MOVI R1, 0011
            "0010010000000001",-- MOVI R2, 0001
            "0001010000000000",-- NEG R2
            "0000111001000000",-- ADD R7, R1
