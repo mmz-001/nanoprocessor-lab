@@ -57,7 +57,7 @@ architecture Behavioral of ALU_8 is
         Flags : out STD_LOGIC_VECTOR (3 downto 0));
     end component;
 
-    component MUL
+    component MUL_8
         Port ( A : in STD_LOGIC_VECTOR (7 downto 0);
         B : in STD_LOGIC_VECTOR (7 downto 0);
         Mul_Sel : in STD_LOGIC;
@@ -120,10 +120,10 @@ begin
         Mod_Sel => Mod_Sel,
         Div_Out => Div_Out,
         Mod_Out => Mod_Out,
-        Flags => Flags_2,
+        Flags => Flags_2
         );
     
-    MUL_0 : MUL
+    MUL_0 : MUL_8
         Port Map (
         A => A,
         B => B,
