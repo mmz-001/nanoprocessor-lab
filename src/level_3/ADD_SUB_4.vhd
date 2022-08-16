@@ -12,19 +12,31 @@ entity Add_Sub_4 is
 end Add_Sub_4;
 
 architecture Behavioral of Add_Sub_4 is
+signal A_signed, B_signed, Sum_out : integer range -8 to 7;
+signal Neg_sig : integer range -1 to 0;
+
+attribute use_dsp : string;
+attribute use_dsp of A_signed, B_signed, Sum_out : signal is "yes";
 
 begin
-
-  process(A,B,Neg) begin
-    if(Neg='0') then
-      Sum <= STD_LOGIC_VECTOR(signed(A) + signed(B));
-    else
-      Sum <= STD_LOGIC_VECTOR(signed(A) - signed(B));
-    end if;
-    Overflow <= (A(3) AND B(3)) XOR (A(2) AND B(2));
-    Zero <= NOT ((A(0) XOR B(0)) OR (A(1) XOR B(1)) OR (A(2) XOR B(2)) or (A(3) XOR B(3)));
-    
-  end process;
   
+  process(A_signed,B_signed,Neg,Sum_out,Neg_sig) begin
+    A_signed <= to_integer(signed(A));
+    B_signed <= to_integer(signed(B));
+
+    Neg_sig <= to_integer(unsigned'('0' & Neg));
+
+    Sum_out <= A_signed + (Neg_sig*2 -1) * B_signed;
+    
+    if(Sum_out=0) then
+      Zero <= '1';
+    else
+      Zero <= '0';
+    end if;
+      
+    end process;
+    
+  Sum <= STD_LOGIC_VECTOR(to_signed(Sum_out, Sum'length));
+  Overflow <= (A(3) AND B(3)) XOR (A(2) AND B(2));
 
 end Behavioral;
