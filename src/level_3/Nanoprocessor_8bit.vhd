@@ -115,6 +115,13 @@ component Reg_8_8
         R_7 : out STD_LOGIC_VECTOR (7 downto 0));
 end component;    
 
+component DFF_4
+    Port ( D : in STD_LOGIC_VECTOR(3 downto 0);
+    Res : in STD_LOGIC;
+    Clk : in STD_LOGIC;
+    Q : out STD_LOGIC_VECTOR(3 downto 0));
+end component;
+
 signal Ins_Bus : STD_LOGIC_VECTOR (15 downto 0);
 signal S_Clk,JMP_Flag : STD_LOGIC;
 signal M,Jmp_Addr : STD_LOGIC_VECTOR (4 downto 0);
@@ -125,6 +132,7 @@ signal Load_Sel : STD_LOGIC_VECTOR (1 downto 0);
 signal FLAGS : STD_LOGIC_VECTOR (3 downto 0);
 signal R0,R1,R2,R3,R4,R5,R6,R7 : STD_LOGIC_VECTOR (7 downto 0);
 signal MUX_A_OUT,MUX_B_OUT : STD_LOGIC_VECTOR (7 downto 0);
+signal Delay_Flags : STD_LOGIC_VECTOR (3 downto 0);
            
 begin
 
@@ -146,9 +154,17 @@ port map(
     Jmp_Addr => Jmp_Addr,
     Im_Val => Im_val);
 
+DFF_4_0 : DFF_4
+    port map (
+        D   => Flags,
+        Res => Res,
+        Clk => S_Clk,
+        Q   => Delay_Flags
+    );
+
 Decoder_1_To_4_0 : Decoder_1_To_4
 port map(
-    A => FLAGS,
+    A => Delay_Flags,
     O => Overflow,
     N => Negative,
     Z => Zero,

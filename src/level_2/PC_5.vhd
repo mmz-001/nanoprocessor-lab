@@ -22,8 +22,8 @@ begin
         Q <= Addr_Jump;
       else
         Q <= STD_LOGIC_VECTOR(unsigned(Q)+"1");
-      end if;
-      M <= Q;
+      end if;      
     end if;
+    M <= Q;
   end process;
 end Behavioral;

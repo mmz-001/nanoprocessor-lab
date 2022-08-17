@@ -25,7 +25,7 @@ begin
             else 
                 Div_Buffer <= STD_LOGIC_VECTOR(signed(A) / signed(B));
                 if (Div_Buffer = "00000000") then
-                    Flags <= "0001";
+                    Flags <= "0010";
                 else    
                     Flags <= "0000";
                 end if;
@@ -39,7 +39,7 @@ begin
             else 
                 Mod_Buffer <= STD_LOGIC_VECTOR(signed(A) mod signed(B));
                 if (Mod_Buffer = "00000000") then
-                    Flags <= "0001";
+                    Flags <= "0010";
                 else    
                     Flags <= "0000";
                 end if;
