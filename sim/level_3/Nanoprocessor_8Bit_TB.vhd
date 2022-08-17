@@ -50,6 +50,7 @@ Switches <= "1000000000";
 Res <= '1';
 wait for 100 ns;
 Res <= '0';
+
 wait;
 
 end process;
