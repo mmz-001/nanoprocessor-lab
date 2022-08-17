@@ -39,6 +39,11 @@ A nanoprocessor capable of executing a set of simple instructions.
 | `INC R`     | Increment value in register `R`                                                                                                                                              | `1 1 1 0 R[0..2] 0 0 0 0 0 0 0 0 0`     | Zero, Negative, Overflow  |
 | `DEC R`     | Decrement value in register `R`                                                                                                                                              | `1 1 1 1 R[0..2] 0 0 0 0 0 0 0 0 0`     | Zero, Negative, Overflow  |
 
+Flags[0] -> Overflow
+Flags[1] -> Zero
+Flags[2] -> Negative
+Flags[3] -> Interrupt
+
 ## Compiler
 
 The compiler is used to compile instructions written in `.asm` format to machine code. The usage of the compiler is described below.
