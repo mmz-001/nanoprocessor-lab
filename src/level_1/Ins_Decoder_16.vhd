@@ -71,7 +71,7 @@ begin
     elsif Ins = "0100" then 
      -- MOV, RA, RB
       R_En <= I(11 downto 9);
-      RA_Sel <= I(11 downto 9);
+      RA_Sel <= I(8 downto 6);
       RB_Sel <= "000";
       AU_Sel <= "000";
       Load_Sel <= "01";
