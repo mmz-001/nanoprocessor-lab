@@ -4,7 +4,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity MUX_2_3_TB is
 end MUX_2_3_TB;
 
-architecture Behavioral of TB_MUX_2_3_bit is
+architecture Behavioral of MUX_2_3_TB is
 component MUX_2_3
     Port ( A : in STD_LOGIC_VECTOR (2 downto 0);
            B : in STD_LOGIC_VECTOR (2 downto 0);

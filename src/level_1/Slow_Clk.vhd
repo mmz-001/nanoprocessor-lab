@@ -17,7 +17,7 @@ architecture Behavioral of Slow_Clk is
  attribute use_dsp of Count : signal is "yes";
 
 begin
-    process (Clk_In) begin
+    process (Clk_In, Count) begin
         if (rising_edge(Clk_In)) then
             Count <= Count + '1';        
         end if;
