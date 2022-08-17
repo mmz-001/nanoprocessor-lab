@@ -118,10 +118,13 @@ begin
       AU_Sel <= "111";
 
     elsif Ins = "1010" then 
-     -- HALT 
-      Jmp_Flag <= '1';
-      Jmp_Addr <= M;
-      
+     -- JZ d
+      if Zero = '1' then
+        Jmp_Flag <= '1';
+      else 
+        Jmp_Flag <= '0';
+      end if;
+
     elsif Ins = "1011" then 
      -- JO, d
       if Overflow = '1' then
