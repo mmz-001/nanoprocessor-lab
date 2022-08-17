@@ -40,7 +40,7 @@ port map(
 process 
 begin
 Clk <= not Clk;
-wait for 5 ns;
+wait for 2 ns;
 end process;
 
 process
@@ -49,7 +49,7 @@ Switches <= "1000000000";
 Push_Buttons<="10000000";
 
 Res <= '1';
-wait for 100 ns;
+wait for 20 ns;
 Res <= '0';
 
 wait;
