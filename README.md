@@ -32,7 +32,7 @@ A nanoprocessor capable of executing a set of simple instructions.
 | `MOD RA RB` | Calculate mod of value in `RA` with value in `RB` and store the result in `RA`. If value in `RB` is zero `Interrupt` flag is set by ALU                                      | `0 1 1 1 RA[0..2] RB[0..2] 0 0 0 0 0 0` | Zero, Negative, Interrupt |
 | `IN R P`    | Take input from port `P` and store the result in register `R`. Port 0 is maps to Switches and port 1 maps to push buttons.                                                   | `1 0 0 0 R[0..2] 0 0 0 0 0 0 0 0 P`     | -                         |
 | `CMP RA RB` | Compare value in `RA` with value in `RB` and if the values are equal `Zero` flag is set, if RA is less than RB `Negative` flag is set, otherwise set no flags are set by ALU | `1 0 0 1 RA[0..2] RB[0..2] 0 0 0 0 0 0` | Zero, Negative            |
-| `HALT`      | Halt execution.                                                                                                                                                              | `1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0`       | -                         |
+| `JZ d`      | Jump to address `d` if `Zero` flag is set                                                                                                                                    | `1 0 1 0 0 0 0 0 0 0 0 d[0..4]`         | -                         |
 | `JO d`      | Jump to address `d` if `Overflow` flag is set                                                                                                                                | `1 0 1 1 0 0 0 0 0 0 0 d[0..4]`         | -                         |
 | `JS d`      | Jump to address `d` if `Negative` flag is set                                                                                                                                | `1 1 0 0 0 0 0 0 0 0 0 d[0..4]`         | -                         |
 | `JINT d`    | Jump to address `d` if `Interrupt` flag is set                                                                                                                               | `1 1 0 1 0 0 0 0 0 0 0 d[0..4]`         | -                         |
@@ -64,7 +64,7 @@ The syntax for the assembly files is quite simple. The available instructions ar
 ## TODO
 
 - [x] Display output in 7-segment display
-- [ ] Make required components
+- [x] Make required components
   - [x] 8-bit registers
   - [x] Program ROM with 32 8-bit registers
   - [x] MUXes
@@ -76,25 +76,25 @@ The syntax for the assembly files is quite simple. The available instructions ar
   - [x] 8-Bit Mul Unit
   - [x] 8-Bit Inc/Dec Unit
   - [x] Register bank
-  - [ ] Instruction Decoder
+  - [x] Instruction Decoder
   - [x] Hex-To-Decimal Converter
   - [x] 7-Segment Graphics Adapter
-- [ ] Add instructions (16 16-bit instructions, Check instruction set below for additional details)
-  - [ ] MOVI
-  - [ ] ADD
-  - [ ] NEG
-  - [ ] JZ
-  - [ ] MOV
-  - [ ] MUL
-  - [ ] DIV
-  - [ ] MOD
-  - [ ] IN
-  - [ ] CMP
-  - [ ] HALT
-  - [ ] JO
-  - [ ] JS
-  - [ ] JINT
-  - [ ] INC
-  - [ ] DEC
+- [x] Add instructions (16 16-bit instructions, Check instruction set below for additional details)
+  - [x] MOVI
+  - [x] ADD
+  - [x] NEG
+  - [x] JZR
+  - [x] MOV
+  - [x] MUL
+  - [x] DIV
+  - [x] MOD
+  - [x] IN
+  - [x] CMP
+  - [x] JZ
+  - [x] JO
+  - [x] JS
+  - [x] JINT
+  - [x] INC
+  - [x] DEC
 - [x] Create a compiler for the new instructions
 - [ ] Create a non-trivial program to illustrate the additional features (e.g, a calculator for with ADD, SUB, MUL, and DIV operations that can take input from the BASYS3 board)

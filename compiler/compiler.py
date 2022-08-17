@@ -3,7 +3,7 @@ import sys
 INSTRUCTION_SET = [
     "MOVI", "ADD", "NEG", "JZR",
     "MOV", "MUL", "DIV", "MOD",
-    "IN", "CMP", "HALT", "JO",
+    "IN", "CMP", "JZ", "JO",
     "JS", "JINT", "INC", "DEC"
 ]
 INSTRUCTION_MACHINE_CODE = [
@@ -87,13 +87,11 @@ if __name__ == "__main__":
         elif operator == "JZR":
             valid_address(operands[1])
             operand_code += "0" * 4 + hex_to_bin(operands[1], 5)
-        elif operator in ["JS", "JO", "JINT"]:
+        elif operator in ["JS", "JO", "JINT", "JZ"]:
             valid_address(operands[0])
             operand_code += "0" * 7 + hex_to_bin(operands[0], 5)
         elif operator == "IN":
             operand_code += "0" * 8 + hex_to_bin(operands[1], 1)
-        elif operator == "HALT":
-            operand_code += "0" * 12
 
         machine_codes.append(MAPPING[operator] + operand_code)
 
