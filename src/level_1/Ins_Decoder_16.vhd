@@ -32,7 +32,7 @@ begin
     RA_Sel <= "000";
     RB_Sel <= "000";
     Jmp_Flag <= '0';
-    AU_Sel <= "000";
+    AU_Sel <= "101";
     Load_Sel <= "00";
     Jmp_Addr <= I(4 downto 0);
     Im_Val <= "00000000";
