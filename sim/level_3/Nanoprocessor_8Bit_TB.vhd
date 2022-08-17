@@ -52,6 +52,7 @@ wait for 100 ns;
 Res <= '0';
 
 wait;
+
 end process;
 
 end Behavioral;
