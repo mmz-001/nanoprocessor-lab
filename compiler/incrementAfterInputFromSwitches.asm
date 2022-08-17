@@ -1,0 +1,6 @@
+IN R7 0
+JZR R7 00
+IN R7 0
+INC R7
+JZR R0 03
+; doesn't work
