@@ -46,6 +46,7 @@ end process;
 process
 begin
 Switches <= "1000000000";
+Push_Buttons<="10000000";
 
 Res <= '1';
 wait for 100 ns;
