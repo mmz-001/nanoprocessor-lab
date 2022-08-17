@@ -21,7 +21,7 @@ begin
         if (Div_Sel = '1') then
             -- Division by zero
             if (B = "00000000") then
-                Flags <= "0001";
+                Flags <= "1000";
             else 
                 Div_Out <= STD_LOGIC_VECTOR(signed(A) / signed(B));
                 Flags <= "0000";
@@ -30,7 +30,7 @@ begin
         elsif (Mod_Sel = '1') then
             -- Mod by zero
             if (B = "00000000") then
-                Flags <= "0001";
+                Flags <= "1000";
             else 
                 Mod_Out <= STD_LOGIC_VECTOR(signed(A) mod signed(B));
                 Flags <= "0000";

@@ -18,9 +18,9 @@ begin
         Q <= "00000000";
         if (Cmp_Sel = '1') then
             if (A = B) then
-                Flags <= "1000";
-            elsif (A < B) then
                 Flags <= "0010";
+            elsif (A < B) then
+                Flags <= "0100";
             else
                 Flags <= "0000";
             end if;
