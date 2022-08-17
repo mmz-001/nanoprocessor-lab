@@ -1,6 +1,5 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.numeric_std.all;
 
 entity Add_Sub_4 is
   Port ( A : in STD_LOGIC_VECTOR (3 downto 0);
@@ -12,31 +11,71 @@ entity Add_Sub_4 is
 end Add_Sub_4;
 
 architecture Behavioral of Add_Sub_4 is
-signal A_signed, B_signed, Sum_out : integer range -8 to 7;
-signal Neg_sig : integer range -1 to 0;
+  component FA
+  port (
+      A, B, Carry_In: in STD_LOGIC;
+      Sum, Carry_Out: out STD_LOGIC
+  );
+  end component;
 
-attribute use_dsp : string;
-attribute use_dsp of A_signed, B_signed, Sum_out : signal is "yes";
-
-begin
+  signal Carry_0 : STD_LOGIC;
+  signal Carry_1 : STD_LOGIC;
+  signal Carry_2 : STD_LOGIC;
+  signal Carry_3 : STD_LOGIC;
+  signal B_Neg : STD_LOGIC_VECTOR (3 downto 0);
+  signal Sum_Out : STD_LOGIC_VECTOR (3 downto 0);
   
-  process(A_signed,B_signed,Neg,Sum_out,Neg_sig,A,B) begin
-    A_signed <= to_integer(signed(A));
-    B_signed <= to_integer(signed(B));
+begin
 
-    Neg_sig <= to_integer(unsigned'('0' & Neg));
+  B_Neg(0) <=  B(0) XOR Neg;
+  B_Neg(1) <=  B(1) XOR Neg;
+  B_Neg(2) <=  B(2) XOR Neg;
+  B_Neg(3) <=  B(3) XOR Neg;
+  
+  -- B    Neg
+  -- 1 xor 1 = 0 
+  -- 0 xor 1 = 1 
+  -- 1 xor 0 = 1 -- no change 
+  -- 0 xor 0 = 0 -- no change 
 
-    Sum_out <= A_signed + (Neg_sig*(-2) +1) * B_signed;
-    
-    if(Sum_out=0) then
-      Zero <= '1';
-    else
-      Zero <= '0';
-    end if;
-      
-    end process;
-    
-  Sum <= STD_LOGIC_VECTOR(to_signed(Sum_out, Sum'length));
-  Overflow <= (A(3) AND B(3)) XOR (A(2) AND B(2));
+  FA_0 : FA
+    port map (
+      A => A(0),
+      B => B_Neg(0),
+      Carry_In => Neg,
+      Sum => Sum_Out(0),
+      Carry_Out => Carry_0
+    );
+  
+  FA_1 : FA
+    port map (
+      A => A(1),
+      B => B_Neg(1),
+      Carry_In => Carry_0,
+      Sum => Sum_Out(1),
+      Carry_Out => Carry_1
+    );
+  
+  FA_2 : FA
+    port map (
+      A => A(2),
+      B => B_Neg(2),
+      Carry_In => Carry_1,
+      Sum => Sum_Out(2),
+      Carry_Out => Carry_2
+    );  
+
+  FA_3 : FA
+    port map (
+      A => A(3),
+      B => B_Neg(3),
+      Carry_In => Carry_2,
+      Sum => Sum_Out(3),
+      Carry_Out => Carry_3
+    );
+  
+  Overflow <= Carry_3 XOR Carry_2;
+  Zero <= NOT (Sum_Out(0) OR Sum_Out(1) OR Sum_Out(2) or Sum_Out(3));
+  Sum <= Sum_Out;
 
 end Behavioral;
