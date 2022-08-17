@@ -13,18 +13,23 @@ entity Div_Mod_8 is
 end Div_Mod_8;
 
 architecture Behavioral of Div_Mod_8 is
-
+signal Div_Buffer, Mod_Buffer : STD_LOGIC_VECTOR (7 downto 0);
 
 begin
-    process(Div_Sel, Mod_Sel, A, B)
+    process(Div_Sel, Mod_Sel, A, B, Div_Buffer, Mod_Buffer)
         begin
         if (Div_Sel = '1') then
             -- Division by zero
             if (B = "00000000") then
                 Flags <= "1000";
             else 
-                Div_Out <= STD_LOGIC_VECTOR(signed(A) / signed(B));
-                Flags <= "0000";
+                Div_Buffer <= STD_LOGIC_VECTOR(signed(A) / signed(B));
+                if (Div_Buffer = "00000000") then
+                    Flags <= "0001";
+                else    
+                    Flags <= "0000";
+                end if;
+                Div_Out <= Div_Buffer;
             end if;
             
         elsif (Mod_Sel = '1') then
@@ -32,8 +37,13 @@ begin
             if (B = "00000000") then
                 Flags <= "1000";
             else 
-                Mod_Out <= STD_LOGIC_VECTOR(signed(A) mod signed(B));
-                Flags <= "0000";
+                Mod_Buffer <= STD_LOGIC_VECTOR(signed(A) mod signed(B));
+                if (Mod_Buffer = "00000000") then
+                    Flags <= "0001";
+                else    
+                    Flags <= "0000";
+                end if;
+                Mod_Out <= Mod_Buffer;
             end if;
         else 
             Flags <= "0000";
