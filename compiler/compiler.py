@@ -103,5 +103,8 @@ if __name__ == "__main__":
 
     # Write machine code to file
     with open(output_file_name, "w") as f:
-        for line in machine_codes:
-            f.write(line + "\n")
+        for index, line in enumerate(machine_codes):
+            if (index != len(machine_codes) - 1):
+                f.write("\"" + line + "\"," + "\n")
+            else:
+                f.write("\"" + line + "\"")
