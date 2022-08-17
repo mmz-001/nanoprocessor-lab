@@ -13,16 +13,16 @@ begin
 
 with A select Q<=
     "00000000" when "0000000000", -- all switches are off 
-    "00000001" when "0000000001", -- switch 1 on 
-    "00000010" when "0000000010", -- swithc 2 on 
-    "00000011" when "0000000100", -- swithc 3 on 
-    "00000100" when "0000001000", -- swithc 4 on 
-    "00000101" when "0000010000", -- swithc 5 on 
-    "00000110" when "0000100000", -- swithc 6 on 
-    "00000111" when "0001000000", -- swithc 7 on 
-    "00001000" when "0010000000", -- swithc 8 on 
-    "00001001" when "0100000000", -- swithc 9 on 
-    "00001010" when "1000000000", -- swithc 10 on  
+    "00000000" when "0000000001", -- switch 1 on 
+    "00000001" when "0000000010", -- swithc 2 on 
+    "00000010" when "0000000100", -- swithc 3 on 
+    "00000011" when "0000001000", -- swithc 4 on 
+    "00000100" when "0000010000", -- swithc 5 on 
+    "00000101" when "0000100000", -- swithc 6 on 
+    "00000110" when "0001000000", -- swithc 7 on 
+    "00000111" when "0010000000", -- swithc 8 on 
+    "00001000" when "0100000000", -- swithc 9 on 
+    "00001001" when "1000000000", -- swithc 10 on  
     (others => 'U') when others;
 
 end Behavioral;

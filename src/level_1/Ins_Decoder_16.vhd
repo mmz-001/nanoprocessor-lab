@@ -103,7 +103,7 @@ begin
     elsif Ins = "1000" then 
      -- IN, R, P
       R_En <= I(11 downto 9);
-      if I(15) = '0' then
+      if I(0) = '0' then
         Load_Sel <= "10"; 
       else
         Load_Sel <= "11"; 

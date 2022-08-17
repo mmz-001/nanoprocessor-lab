@@ -49,6 +49,7 @@ Res <= '1';
 wait for 100 ns;
 Res <= '0';
 
+Switches<= "0000001000";
 wait;
 end process;
 
