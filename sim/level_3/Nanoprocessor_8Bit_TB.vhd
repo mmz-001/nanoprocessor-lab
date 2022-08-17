@@ -45,15 +45,13 @@ end process;
 
 process
 begin
-Switches <= "0000000000";
+Switches <= "1000000000";
 
 Res <= '1';
 wait for 100 ns;
 Res <= '0';
-
-wait for 400 ns;
-Switches<= "0000001000";
 wait;
+
 end process;
 
 end Behavioral;
