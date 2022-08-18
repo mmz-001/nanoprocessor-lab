@@ -2,9 +2,11 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
 entity Nanoprocessor is
-    port(Out_LED : out STD_LOGIC_VECTOR (3 downto 0);
+    port(LED_Out : out STD_LOGIC_VECTOR (3 downto 0);
         Overflow : out STD_LOGIC;
         Zero : out STD_LOGIC;
+        Seven_Seg_Out_L : out STD_LOGIC_VECTOR(6 downto 0);
+        Anode_L : out STD_LOGIC_VECTOR(3 downto 0);
         Clk : in STD_LOGIC;
         Res : in STD_LOGIC);
         
@@ -79,14 +81,23 @@ end component;
 component PC_3
   Port (Res : in STD_LOGIC;
         Clk : in STD_LOGIC;
-        D : in STD_LOGIC_VECTOR (2 downto 0);
-        Q : out STD_LOGIC_VECTOR (2 downto 0)
+        Addr_Jump : in STD_LOGIC_VECTOR (4 downto 0);
+        Q_last : in STD_LOGIC_VECTOR(4 downto 0);
+        Jump_Flag : in STD_LOGIC; 
+        Q : out STD_LOGIC_VECTOR (4 downto 0)
    );
 end component;
 
+-- Program ROM
 component LUT_12_8
     Port ( D : in STD_LOGIC_VECTOR (2 downto 0);
            I : out STD_LOGIC_VECTOR (11 downto 0));
+end component;
+
+-- 7-segment ROM
+component LUT_16_7
+    Port ( I : in STD_LOGIC_VECTOR (3 downto 0);
+           D : out STD_LOGIC_VECTOR (6 downto 0));
 end component;
 
 component Ins_Decoder_12
@@ -270,6 +281,15 @@ begin
         Im_Val => I_Val
       );
     
-    Out_LED <= R7;
+    LED_Out <= R7;
+
+    -- 7-segmenet display
+    LUT_16_7_0: LUT_16_7
+        Port map (
+            I => R7,
+            D => Seven_Seg_Out_L
+        );
+    -- Select 7-segment display
+    Anode_L <= "1110";
     
 end Behavioral;

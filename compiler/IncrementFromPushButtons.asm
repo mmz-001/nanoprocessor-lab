@@ -1,0 +1,3 @@
+IN R7 1
+INC R7
+JZR R0 01
