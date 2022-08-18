@@ -92,3 +92,5 @@ The syntax for the assembly files is quite simple. The available instructions ar
   - [ ] DEC
 - [x] Create a compiler for the new instructions
 - [ ] Create a non-trivial program to illustrate the additional features (e.g, a calculator for with ADD, SUB, MUL, and DIV operations that can take input from the BASYS3 board)
+
+https://jasonacox.github.io/TM1637TinyDisplay/examples/7-segment-animator.html
